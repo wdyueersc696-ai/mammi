@@ -1,7 +1,16 @@
 @import "./drawer.css";
 @import "./scene.css";
+@font-face {
+  font-family: "Yeseva One";
+  src: url("../fonts/yeseva-one.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 :root {
-  --paper:#f5f2e9; --ink:#392721; --tomato:#ad3728; --pink:#eda1bd; --jade:#62b9ac; --sun:#ffcf54;
+  --paper:#f5f2e9; --ink:#392721; --tomato:#ad3728; --pink:#eda1bd; --butter:#f3dfb5; --sun:#ffcf54;
+  --font-display:"Yeseva One",Georgia,serif;
+  --radius-feature:24px; --radius-product:18px;
   font: 400 16px/1.45 Inter,Arial,sans-serif; color:var(--ink); background:var(--paper); -webkit-font-smoothing:antialiased;
 }
 * {box-sizing:border-box}
@@ -55,18 +64,18 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .foot button { padding: 12px 3px; font-size: 15px; font-weight: 600; background: transparent; border: 0; }
 .foot button:hover { color: var(--sun); }
 .intro {display:flex;align-items:flex-end;justify-content:space-between;gap:26px;padding:clamp(37px,4.5vw,79px) 0 clamp(26px,2.8vw,50px)}
-.intro h1,#collection h2,.how h2,.bill h2 {font-weight:780;letter-spacing:-.061em;line-height:.98}
-.intro h1 {font-size:clamp(63px,8.8vw,148px);color:var(--tomato)}
+.intro h1,#collection h2,.how h2,.bill h2 {font-family:var(--font-display);font-weight:400;letter-spacing:-.025em;line-height:1.08;text-wrap:balance}
+.intro h1 {font-size:clamp(60px,7.2vw,112px);color:var(--tomato)}
 .intro p {max-width:295px;margin:0 1% .2em 0;font-size:clamp(15px,1.16vw,19px);font-weight:550;letter-spacing:-.027em;line-height:1.34}
-.duo {display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.bill {position:relative;isolation:isolate;overflow:hidden;min-height:clamp(310px,28.5vw,455px)}
+.duo {display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bill {position:relative;isolation:isolate;overflow:hidden;border-radius:var(--radius-feature);min-height:clamp(310px,28.5vw,455px)}
 .gloves {background:var(--pink);color:#5c243d}
-.covers {background:var(--jade);color:#124b42}
+.covers {background:var(--butter);color:var(--tomato)}
 .bill-text {position:absolute;z-index:2;left:6.2%;top:9.5%;bottom:8%;display:flex;align-items:flex-start;flex-direction:column;justify-content:space-between;}
-.bill h2 {font-size:clamp(39px,3.5vw,62px)}
+.bill h2 {font-size:clamp(36px,3.2vw,54px)}
 .hero-item {position:absolute;display:block;pointer-events:none;object-fit:contain}
-.gloves .hero-item {right:1.4%;bottom:5%;width:60%;height:87%;transform:rotate(4deg)}
-.covers .hero-item {right:1.7%;bottom:3%;width:55%;height:94%;transform:rotate(3deg)}
+.gloves .hero-item {right:0;bottom:3%;width:56%;height:85%;transform:rotate(4deg)}
+.covers .hero-item {right:0;bottom:3%;width:52%;height:91%;transform:rotate(3deg)}
 .bill button,.cta,.notice-ok {background:var(--sun);color:#432820;border:0;font-size:15px;letter-spacing:-.028em;font-weight:700;display:inline-flex;justify-content:center;align-items:center;gap:11px;border-radius:32px;min-height:44px;padding:9px 16px}
 .bill button:hover,.cta:hover,.notice-ok:hover {background:#ffe194}
 .bill button svg,.cta svg,.mast-cta svg {width:18px;height:18px}
@@ -80,7 +89,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .filters button:hover:not([aria-pressed=true]) {background:#e9e4d9}
 .products {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.35vw,22px)}
 .product {text-align:left;background:none;border:0;padding:0;min-width:0;display:flex;flex-direction:column}
-.imagewell {display:block;width:100%;aspect-ratio:1/1.04;overflow:hidden;background:#ebdfcb}
+.imagewell {display:block;width:100%;aspect-ratio:1/1.04;overflow:hidden;border-radius:var(--radius-product);background:#ebdfcb}
 .imagewell.cover {aspect-ratio:3/4}
 .imagewell img {width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease-out}
 @media (hover:hover) {.product:hover .imagewell img {transform:scale(1.035)}}
@@ -140,3 +149,9 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 
 .how-title { align-self: start; }
 .how .scroll-scene { grid-column: 1 / -1; }
+
+@media (min-width:621px) and (max-width:1100px) {
+  .intro {align-items:flex-start;flex-direction:column;gap:16px}
+  .intro p {max-width:100%}
+  .intro br {display:none}
+}

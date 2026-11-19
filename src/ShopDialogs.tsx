@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-type Page = "order" | "policy" | "terms" | "complete";
+type Page = "product" | "order" | "policy" | "terms" | "complete";
 type Props = {
   modal: "order" | "policy" | null;
   onClose: () => void;
@@ -13,19 +13,44 @@ const names = {
   geese: "Ни пуха / ни пера", horses: "Конь / огонь",
 };
 const titles = {
+  product: "Об изделии",
   order: "Пример предзаказа",
   policy: "Политика конфиденциальности",
   terms: "Об этой форме",
   complete: "Так выглядит ваш выбор",
 };
 
+const descriptions = {
+  mittens: {
+    intro: "Утеплённые варежки для зимних прогулок с коляской, поездок на санках и дороги домой за руку. Внутри предусмотрены мягкий флис и отдельный слой утеплителя.",
+    details: [
+      ["Верх", "Плащёвая ткань дюспо с нашим принтом"],
+      ["Подкладка", "Мягкий флис"],
+      ["Утепление", "Отдельный синтетический слой"],
+      ["Детали", "Сборка на запястье и съёмный шнур, чтобы варежки оставались вместе"],
+    ],
+    note: "Сейчас готовим первый образец. После примерки уточним размеры, окончательный состав и рекомендации по уходу.",
+  },
+  cover: {
+    intro: "Готовим утеплённый чехол для зимних прогулок с коляской. Спереди предусмотрены молния и прозрачное открываемое окно. Принт можно подобрать в тон варежкам.",
+    details: [
+      ["Верх", "Плащёвая ткань с нашим принтом"],
+      ["Подкладка", "Гладкая подкладочная ткань"],
+      ["Утепление", "Отдельный синтетический слой"],
+      ["Детали", "Центральная молния, открываемое прозрачное окно"],
+    ],
+    note: "Материалы пока предварительные. Размеры и список подходящих колясок добавим после примерок образца.",
+  },
+};
+
 function PreviewDialog({ modal, onClose, kind, print }: Props & { modal: "order" | "policy" }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const returnTarget = useRef<string | null>(null);
-  const [page, setPage] = useState<Page>(modal);
+  const [page, setPage] = useState<Page>(modal === "order" ? "product" : "policy");
   const [accepted, setAccepted] = useState(false);
   const product = kind === "mittens" ? "Варежки" : "Чехол для коляски";
+  const description = descriptions[kind];
 
   useEffect(() => {
     const element = dialog.current;
@@ -57,20 +82,35 @@ function PreviewDialog({ modal, onClose, kind, print }: Props & { modal: "order"
     else onClose();
   }
 
-  return <dialog ref={dialog} className="m-dialog" aria-labelledby="dialog-title"
+  return <dialog ref={dialog} className={`m-dialog${page === "product" ? " m-dialog--product" : ""}`} aria-labelledby="dialog-title"
     onCancel={event => { event.preventDefault(); closeOrBack(); }}
     onClick={event => { if (event.target === dialog.current) closeOrBack(); }}>
     <div className="m-dialog-panel">
       <button type="button" className="m-dialog-close" aria-label={nested ? "Назад к форме" : "Закрыть"} onClick={closeOrBack}>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 4 12 12m0-12L4 16" /></svg>
       </button>
-      <h2 id="dialog-title" ref={heading} tabIndex={-1}>{titles[page]}</h2>
+      <h2 id="dialog-title" ref={heading} tabIndex={-1}>{page === "product" ? product : titles[page]}</h2>
+      {page === "product" && <div className="m-product-layout">
+        <div className={`m-product-picture m-product-picture--${kind}`}>
+          <img src={`./products/${kind}-${print}.webp`} alt={`${product} «${names[print]}», эскиз`} width="460" height={kind === "mittens" ? 460 : 614} />
+        </div>
+        <div className="m-product-description">
+          <h3 className="m-product-name">{names[print]}</h3>
+          <p>{description.intro}</p>
+          <h3>Материалы и детали</h3>
+          <dl className="m-product-specs">{description.details.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+          <p className="m-product-note">{description.note}</p>
+          <button type="button" className="m-dialog-main" onClick={() => setPage("order")}>Посмотреть форму предзаказа</button>
+          <p className="m-product-availability">Предзаказ пока не открыт. Цена и сроки появятся здесь позже.</p>
+        </div>
+      </div>}
       {page === "order" && <>
         <div className="m-dialog-product">
           <img src={`./products/${kind}-${print}-460.webp`} alt="" width="82" height="82" />
           <div><span>{product}</span><strong>{names[print]}</strong></div>
         </div>
-        <p>Предзаказ откроется позже. Здесь можно примерить форму с готовым демонстрационным адресом.</p>
+        <button type="button" className="m-dialog-link m-product-back" onClick={() => setPage("product")}>К описанию и составу</button>
+        <p>Предзаказ откроется позже. Пока можно посмотреть форму с примером электронной почты.</p>
         <form className="m-dialog-form" onSubmit={event => { event.preventDefault(); if (accepted) setPage("complete"); }}>
           <label htmlFor="demo-email">Пример электронной почты</label>
           <input id="demo-email" type="email" value="primer@example.com" readOnly autoComplete="off" />

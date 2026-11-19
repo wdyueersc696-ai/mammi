@@ -39,6 +39,7 @@ await writeFile(new URL("./index.html", import.meta.url), `<!doctype html>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>mammi — варежки и чехлы на коляску</title>
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="preload" href="./fonts/yeseva-one.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="./fonts/inter.css">
 <link rel="stylesheet" href="./src/globals.css?v=${version}">
 <link rel="stylesheet" href="./src/dialogs.css?v=${version}">
