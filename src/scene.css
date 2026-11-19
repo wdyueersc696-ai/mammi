@@ -1,0 +1,25 @@
+.scroll-scene {
+  width: 100%;
+  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
+  background: transparent;
+}
+.scroll-scene-art {
+  display: block;
+  width: min(100%, 550px);
+  height: auto;
+  margin-inline: auto;
+  transform: scaleX(-1);
+}
+.scroll-scene[data-animated="true"] .scroll-scene-art {
+  transform: translate3d(var(--scene-x, 0px), 0, 0) scaleX(-1);
+  transition: transform 100ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-scene[data-animated="true"] .scroll-scene-art {
+    transform: scaleX(-1);
+    transition: none;
+  }
+}
+

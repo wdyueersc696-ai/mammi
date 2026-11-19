@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Wordmark from "./Wordmark";
 
 type Props = {
   onSelect: (kind: "mittens" | "cover") => void;
@@ -81,7 +82,7 @@ export default function MenuDrawer({ onSelect, onPolicy, illustrationSrc }: Prop
       }}>
       <div className="drawer-inner">
         <div className="drawer-heading">
-          <span className="wordmark" aria-hidden="true">mammi</span>
+          <span className="wordmark" aria-hidden="true"><Wordmark/></span>
           <button className="drawer-close" type="button" aria-label="Закрыть меню"
             onClick={() => closeMenu()}>
             <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
