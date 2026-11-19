@@ -1,3 +1,4 @@
+@import "./drawer.css";
 :root {
   --paper:#f5f2e9; --ink:#392721; --tomato:#ad3728; --pink:#eda1bd; --jade:#62b9ac; --sun:#ffcf54;
   font: 400 16px/1.45 Inter,Arial,sans-serif; color:var(--ink); background:var(--paper); -webkit-font-smoothing:antialiased;
@@ -24,7 +25,6 @@ h1,h2,p {margin:0}
 .mast .mast-cta,.menu-toggle,.menuclose {display:flex;align-items:center;justify-content:center;gap:10px}
 .mast .mast-cta {border:1px solid currentColor;border-radius:30px;padding:9px 16px;font-size:14px}
 .mast .mast-cta:hover {background:var(--paper);color:var(--tomato)}
-.mast .menu-toggle,.mobilemenu:not([open]) {display:none}
 .intro {display:flex;align-items:flex-end;justify-content:space-between;gap:26px;padding:clamp(37px,4.5vw,79px) 0 clamp(26px,2.8vw,50px)}
 .intro h1,#collection h2,.how h2,.bill h2 {font-weight:780;letter-spacing:-.061em;line-height:.98}
 .intro h1 {font-size:clamp(63px,8.8vw,148px);color:var(--tomato)}
@@ -78,12 +78,6 @@ h1,h2,p {margin:0}
 .notice .textlink {padding:0;border:0;background:none;color:#ffdc85;font-weight:650}
 .notice-ok {min-height:37px;padding:6px 13px;font-size:13px}
 @keyframes arrive {from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.mobilemenu {position:fixed;inset:0 0 auto;margin:0;width:100%;max-width:none;max-height:90svh;border:0;background:var(--paper);color:var(--tomato);padding:0}
-.mobilemenu::backdrop {background:#34212088}
-.mobilemenu>div {padding:14px 6vw 30px}
-.menuclose {width:44px;height:44px;font-size:32px;position:relative}
-.mobilemenu nav {display:grid;align-items:start;margin-top:20px}
-.mobilemenu nav :is(a,button){display:block;text-align:left;line-height:1.25;padding:12px 0;font-size:22px;font-weight:650;letter-spacing:-.045em}
 @media(max-width:850px){
   .intro {align-items:flex-start;flex-direction:column;gap:15px}
   .intro p {max-width:100%}.intro br {display:none}
@@ -112,3 +106,9 @@ h1,h2,p {margin:0}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
 
+.how-title { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.how-friends { display: block; width: min(100%, 355px); height: auto; }
+@media (max-width: 620px) {
+  .how-title { display: contents; }
+  .how-friends { order: 3; width: min(100%, 320px); justify-self: center; margin-top: 8px; }
+}
