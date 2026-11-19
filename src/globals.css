@@ -17,13 +17,11 @@ h1,h2,p {margin:0}
 .skip:focus {transform:none}
 
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+.mast, footer { background: var(--tomato); color: var(--paper); }
 .mast {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--paper);
-  color: var(--tomato);
-  border-bottom: 1px solid #ad37281c;
 }
 .mast-inner {
   display: grid;
@@ -52,8 +50,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   font-size: 14px;
   font-weight: 600;
 }
-.mast .mast-cta:hover { background: var(--tomato); color: var(--paper); }
-footer { background: var(--tomato); color: var(--paper); }
+.mast .mast-cta:hover { background: var(--paper); color: var(--tomato); }
 .foot { display: flex; align-items: center; justify-content: space-between; }
 .foot button { padding: 12px 3px; font-size: 15px; font-weight: 600; background: transparent; border: 0; }
 .foot button:hover { color: var(--sun); }
