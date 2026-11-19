@@ -1,0 +1,67 @@
+.m-dialog {
+  --dialog-paper: #fff5db;
+  --dialog-ink: #602219;
+  --dialog-accent: #b72f1d;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 0;
+  width: min(520px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(91svh, 830px);
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 22px;
+  background: var(--dialog-paper);
+  color: var(--dialog-ink);
+  font-family: Inter, var(--font-sans, Arial), sans-serif;
+  font-size: 16px;
+  line-height: 1.46;
+  overscroll-behavior: contain;
+}
+.m-dialog[open] { animation: mammi-sheet-in 210ms cubic-bezier(.19, 1, .22, 1); }
+.m-dialog::backdrop { background: rgb(43 15 12 / 56%); animation: mammi-shade-in 190ms ease-out; }
+.m-dialog-panel { position: relative; padding: 36px; }
+.m-dialog h2 { max-width: calc(100% - 42px); margin: 0 0 22px; color: var(--dialog-ink); font-size: clamp(28px, 4vw, 38px); font-weight: 800; line-height: 1.02; letter-spacing: -.034em; overflow-wrap: anywhere; }
+.m-dialog h2:focus { outline: 0; }
+.m-dialog h3 { margin: 22px 0 6px; font-size: 17px; line-height: 1.2; font-weight: 750; }
+.m-dialog p { margin: 0 0 12px; font-size: 16px; line-height: 1.45; }
+.m-dialog-document p + p { margin-top: 10px; }
+.m-dialog-document a { display: inline; color: var(--dialog-accent); font-weight: 680; text-decoration: none; overflow-wrap: anywhere; }
+.m-dialog button, .m-dialog input { font: inherit; }
+.m-dialog button { cursor: pointer; }
+.m-dialog :where(input, button, a):focus-visible { outline: 3px solid var(--dialog-accent); outline-offset: 3px; }
+.m-dialog .m-dialog-close { position: absolute; top: 23px; right: 19px; width: 44px; height: 44px; border-radius: 100%; display: grid; place-items: center; border: 0; background: transparent; color: var(--dialog-ink); }
+.m-dialog-close svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+.m-dialog-close:hover { background: #f4dfb6; }
+.m-dialog-product { display: flex; align-items: center; gap: 15px; margin: 0 0 18px; }
+.m-dialog-product img { width: 82px; height: 82px; border-radius: 10px; object-fit: contain; background: #f4e8d4; }
+.m-dialog-product span, .m-dialog-product strong { display: block; }
+.m-dialog-product span { font-size: 14px; color: #754b39; margin-bottom: 4px; }
+.m-dialog-product strong { font-size: 20px; line-height: 1.2; font-weight: 750; }
+.m-dialog-form { margin-top: 20px; }
+.m-dialog-form > label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 650; }
+.m-dialog-form > input { width: 100%; min-height: 48px; box-sizing: border-box; padding: 10px 13px; border-radius: 8px; border: 1px solid #987560; color: var(--dialog-ink); background: #fffaf0; }
+.m-dialog-form > input[readonly] { background: #f5e8cd; }
+.m-dialog-form > input::placeholder { color: #7a6156; }
+.m-dialog-consent { display: grid; grid-template-columns: 23px 1fr; gap: 10px; align-items: start; margin: 20px 0 14px; font-size: 14px; }
+.m-dialog-consent > input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--dialog-accent); cursor: pointer; }
+.m-dialog-consent label { cursor: pointer; }
+.m-dialog .m-dialog-link { padding: 0; border: 0; border-radius: 3px; background: transparent; color: var(--dialog-accent); font-weight: 700; line-height: inherit; text-align: left; }
+.m-dialog .m-dialog-link:hover, .m-dialog-document a:hover { color: #802016; }
+.m-dialog .m-dialog-main { display: block; width: 100%; min-height: 48px; padding: 12px 17px; margin-top: 19px; border: 0; border-radius: 999px; background: var(--dialog-accent); color: #fff9e9; font-weight: 750; line-height: 1.25; }
+.m-dialog .m-dialog-main:hover { background: #902619; }
+.m-dialog .m-dialog-main:disabled { background: #80695d; cursor: wait; }
+.m-dialog .m-dialog-policy-link { display: block; min-height: 44px; margin: 6px auto -12px; font-size: 13px; }
+.m-dialog .m-dialog-error { color: #9a2419; font-weight: 650; font-size: 14px; }
+.m-dialog .m-dialog-receipt { font-weight: 650; }
+@keyframes mammi-sheet-in { from { opacity: .45; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes mammi-shade-in { from { background-color: transparent; } }
+@media (max-width: 560px) {
+  .m-dialog { width: 100%; max-height: calc(100svh - 14px); inset: auto 0 0; border-radius: 20px 20px 0 0; }
+  .m-dialog-panel { padding: 28px 20px max(27px, env(safe-area-inset-bottom)); }
+  .m-dialog .m-dialog-close { top: 15px; right: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m-dialog[open], .m-dialog::backdrop { animation: none; }
+}
