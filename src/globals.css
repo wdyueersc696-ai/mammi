@@ -154,4 +154,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   .intro {align-items:flex-start;flex-direction:column;gap:16px}
   .intro p {max-width:100%}
   .intro br {display:none}
+  .bill h2 {font-size:clamp(28px,3.6vw,38px)}
+  .gloves .hero-item {width:49%}
+  .covers .hero-item {width:46%}
 }
