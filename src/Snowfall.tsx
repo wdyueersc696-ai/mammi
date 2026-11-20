@@ -9,9 +9,8 @@ const flakes = [
   [69, 5, 38, -18, 6], [89, 10, 36, -4, -10],
 ];
 
-export default function Snowfall({ name, offset = 0 }: { name: string; offset?: number }) {
+export default function Snowfall({ offset = 0 }: { offset?: number }) {
   const layer = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export default function Snowfall({ name, offset = 0 }: { name: string; offset?: 
     if (!card) return;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let visible = false;
-    const update = () => setActive(visible && !document.hidden && !reducedMotion.matches && !paused);
+    const update = () => setActive(visible && !document.hidden && !reducedMotion.matches);
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       update();
@@ -32,10 +31,9 @@ export default function Snowfall({ name, offset = 0 }: { name: string; offset?: 
       document.removeEventListener("visibilitychange", update);
       reducedMotion.removeEventListener("change", update);
     };
-  }, [paused]);
+  }, []);
 
-  return <>
-    <div ref={layer} className="snowfall" data-active={active} aria-hidden="true">
+  return <div ref={layer} className="snowfall" data-active={active} aria-hidden="true">
       {flakes.map(([left, size, duration, delay, drift], index) => <span
         key={index} className={size > 6 ? "snow-track" : "snow-track snow-track--dot"}
         style={{
@@ -47,14 +45,5 @@ export default function Snowfall({ name, offset = 0 }: { name: string; offset?: 
           <path d="M12 2v20M3.34 7l17.32 10M3.34 17 20.66 7M9 4l3 3 3-3M9 20l3-3 3 3M4.3 10.6l4.1-1.1-1.1-4.1M19.7 13.4l-4.1 1.1 1.1 4.1M4.3 13.4l4.1 1.1-1.1 4.1M19.7 10.6l-4.1-1.1 1.1-4.1" />
         </svg> : <i />}
       </span>)}
-    </div>
-    <button className="snow-toggle" type="button" aria-pressed={paused}
-      aria-label={`${paused ? "Включить" : "Приостановить"} снег на плашке «${name}»`}
-      title={paused ? "Включить снег" : "Приостановить снег"}
-      onClick={() => setPaused(value => !value)}>
-      <span aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        {paused ? <path d="m7 4 8 6-8 6Z" /> : <path d="M7 5v10M13 5v10" />}
-      </svg></span>
-    </button>
-  </>;
+    </div>;
 }
