@@ -1,17 +1,15 @@
 .brand-lockup {
   display: grid;
-  justify-items: center;
-  width: 164px;
-  padding: 5px 10px 7px;
-  background: var(--paper);
-  color: var(--tomato);
-  border-radius: 13px;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-brand-gap);
+  width: 340px;
+  color: inherit;
 }
 
 .brand-lockup--type {
+  display: block;
   width: 185px;
-  padding: 0;
-  background: transparent;
 }
 
 .brand-lettering {
@@ -25,7 +23,7 @@
 .brand-characters {
   position: relative;
   display: block;
-  width: 73%;
+  width: 100%;
   aspect-ratio: 1166 / 648;
   overflow: hidden;
 }
@@ -42,24 +40,29 @@
     0 42.48%, 9.96% 44.92%, 12.30% 44.14%, 17.58% 39.65%, 18.36% 38.18%,
     19.99% 36.23%, 22.14% 34.86%, 24.15% 34.86%, 25.07% 35.74%, 25.33% 36.52%,
     25.39% 36.91%, 27.93% 41.11%, 27.99% 41.41%, 28.26% 44.53%, 30.01% 45.12%,
-    51.63% 42.48%, 55.27% 48.73%, 56.77% 49.41%, 59.11% 48.93%, 61.65% 46.97%,
-    63.80% 44.24%, 100% 42.48%, 100% 100%, 0 100%
+    51.63% 42.48%, 54.70% 51.20%, 61.65% 51.20%,
+    63.80% 49%, 100% 49%, 100% 100%, 0 100%
   );
 }
 
 .foot .brand-lockup {
   margin-block: 10px;
+  width: 300px;
 }
 
 @media (max-width: 620px) {
   .brand-lockup {
-    width: 130px;
-    padding: 4px 7px 5px;
-    border-radius: 10px;
+    width: clamp(180px, 50vw, 260px);
+    gap: var(--space-brand-gap-small);
   }
 
   .brand-lockup--type {
     width: 154px;
-    padding: 0;
   }
+
+  .foot .brand-lockup { width: 244px; }
+}
+
+@media (max-width: 359px) {
+  .mast-inner > .wordmark .brand-lockup { width: 260px; }
 }
