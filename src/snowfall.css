@@ -1,0 +1,64 @@
+/* Snow is clipped to each product tile; product text stays above it. */
+.bill::after {
+  content:"";
+  position:absolute;
+  inset:10px;
+  z-index:2;
+  border:1px dashed var(--stitch-color);
+  border-radius:calc(var(--radius-feature) - 8px);
+  pointer-events:none;
+}
+.snowfall {
+  position:absolute;
+  inset:0;
+  z-index:1;
+  overflow:hidden;
+  border-radius:inherit;
+  color:var(--snow-color);
+  pointer-events:none;
+}
+.snow-track {
+  position:absolute;
+  top:-20px;
+  bottom:-20px;
+  left:var(--snow-x);
+  width:var(--snow-size);
+  animation:gentle-snow var(--snow-duration) var(--snow-delay) linear infinite;
+  animation-play-state:paused;
+}
+.snowfall[data-active="true"] .snow-track {animation-play-state:running}
+.snow-track svg {display:block;width:100%;height:auto}
+.snow-track--dot i {display:block;width:100%;aspect-ratio:1;border-radius:50%;background:currentColor;opacity:.65}
+.bill .snow-toggle {
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:3;
+  width:44px;
+  min-height:44px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  color:var(--ink);
+}
+.snow-toggle span {display:grid;place-items:center;width:28px;height:28px;background:var(--snow-control-bg);border-radius:50%}
+.bill .snow-toggle svg {width:16px;height:16px}
+.bill .snow-toggle:hover {background:transparent}
+.snow-toggle:hover span {background:var(--paper)}
+@keyframes gentle-snow {
+  0% {transform:translate3d(0,0,0);opacity:0}
+  8% {opacity:.85}
+  50% {transform:translate3d(var(--snow-drift),50%,0)}
+  92% {opacity:.85}
+  100% {transform:translate3d(0,100%,0);opacity:0}
+}
+@media(max-width:620px){
+  .bill::after {inset:8px}
+  .bill .snow-toggle {top:5px;right:5px}
+  .snow-track:nth-child(n+11) {display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .snowfall,.bill .snow-toggle {display:none}
+  .snow-track {animation:none}
+}

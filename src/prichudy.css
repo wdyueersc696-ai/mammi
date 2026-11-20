@@ -12,6 +12,12 @@
   width: 185px;
 }
 
+/* Keep the approved lettering size; grow only the figures in the header. */
+.mast-inner > .wordmark .brand-lockup {
+  grid-template-columns:206.5px 152px;
+  width:max-content;
+}
+
 .brand-lettering {
   display: block;
   width: 100%;
@@ -61,8 +67,13 @@
   }
 
   .foot .brand-lockup { width: 244px; }
+
+  .mast-inner > .wordmark .brand-lockup {
+    --brand-mobile-width:clamp(180px,50vw,260px);
+    grid-template-columns:calc((var(--brand-mobile-width) - 8px) * .62963) calc((var(--brand-mobile-width) - 8px) * .5);
+  }
 }
 
 @media (max-width: 359px) {
-  .mast-inner > .wordmark .brand-lockup { width: 260px; }
+  .mast-inner > .wordmark .brand-lockup {grid-template-columns:158.65px 116.65px}
 }
