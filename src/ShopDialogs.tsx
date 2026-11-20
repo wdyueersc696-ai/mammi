@@ -9,8 +9,8 @@ type Props = {
 };
 
 const names = {
-  stripes: "Туда / сюда", dots: "Ой / всё",
-  geese: "Ни пуха / ни пера", horses: "Конь / огонь",
+  stripes: "Туда сюда", dots: "Ой всё",
+  geese: "Ни пуха ни пера", horses: "Конь огонь",
 };
 const titles = {
   product: "Об изделии",
