@@ -69,7 +69,7 @@ export default function MenuDrawer({ onSelect, onPolicy, illustrationSrc }: Prop
       </svg>
     </button>
     <dialog id="mammi-menu" ref={dialog} className="menu-drawer" data-phase={phase}
-      aria-label="Меню mammi"
+      aria-label="Меню «Причуды»"
       onCancel={event => { event.preventDefault(); closeMenu(); }}
       onAnimationEnd={event => {
         if (event.target === dialog.current && phase === "closing") finishClose();
@@ -82,7 +82,7 @@ export default function MenuDrawer({ onSelect, onPolicy, illustrationSrc }: Prop
       }}>
       <div className="drawer-inner">
         <div className="drawer-heading">
-          <span className="wordmark" aria-hidden="true"><Wordmark/></span>
+          <span className="wordmark" aria-hidden="true"><Wordmark illustrated={false}/></span>
           <button className="drawer-close" type="button" aria-label="Закрыть меню"
             onClick={() => closeMenu()}>
             <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
@@ -100,7 +100,7 @@ export default function MenuDrawer({ onSelect, onPolicy, illustrationSrc }: Prop
           }}>Как заказать</a>
         </nav>
         {illustrationSrc && <img className="drawer-friends" src={illustrationSrc}
-          alt="Два рисованных персонажа с варежками mammi" width="640" height="420" />}
+          alt="Две девушки с варежками «Причуды»" width="640" height="420" />}
         <button className="drawer-policy" type="button" onClick={() => closeMenu(onPolicy)}>
           Политика конфиденциальности
         </button>

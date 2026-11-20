@@ -26,7 +26,7 @@ const compiled = { exports: {} };
 new Function("require", "module", "exports", serverBundle.outputFiles[0].text)(require, compiled, compiled.exports);
 const content = renderToString(createElement(compiled.exports.default));
 const versionHash = createHash("sha256");
-for (const file of ["assets/storefront.js", "src/globals.css", "src/drawer.css", "src/scene.css", "src/dialogs.css"]) {
+for (const file of ["assets/storefront.js", "src/globals.css", "src/drawer.css", "src/scene.css", "src/dialogs.css", "src/prichudy.css"]) {
   versionHash.update(await readFile(new URL(file, import.meta.url)));
 }
 const version = versionHash.digest("hex").slice(0, 12);
@@ -35,11 +35,10 @@ await writeFile(new URL("./index.html", import.meta.url), `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ad3728">
-<meta name="description" content="Коллекция mammi. Женские варежки и зимние чехлы на коляску в четырёх принтах.">
+<meta name="description" content="Коллекция «Причуды». Женские варежки и зимние чехлы на коляску в четырёх принтах.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>mammi — варежки и чехлы на коляску</title>
+<title>Причуды — варежки и чехлы на коляску</title>
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-<link rel="preload" href="./fonts/yeseva-one.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="./fonts/inter.css">
 <link rel="stylesheet" href="./src/globals.css?v=${version}">
 <link rel="stylesheet" href="./src/dialogs.css?v=${version}">

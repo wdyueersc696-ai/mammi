@@ -22,7 +22,7 @@
 .m-dialog[open] { animation: mammi-sheet-in 210ms cubic-bezier(.19, 1, .22, 1); }
 .m-dialog::backdrop { background: rgb(43 15 12 / 56%); animation: mammi-shade-in 190ms ease-out; }
 .m-dialog-panel { position: relative; padding: 36px; }
-.m-dialog h2 { max-width: calc(100% - 42px); margin: 0 0 22px; color: var(--dialog-accent); font-family: var(--font-display); font-size: clamp(28px, 4vw, 38px); font-weight: 400; line-height: 1.12; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.m-dialog h2 { max-width: calc(100% - 42px); margin: 0 0 22px; color: var(--dialog-accent); font-size: clamp(28px, 4vw, 38px); font-weight: 800; line-height: 1.02; letter-spacing: -.034em; overflow-wrap: anywhere; }
 .m-dialog h2:focus { outline: 0; }
 .m-dialog h3 { margin: 22px 0 6px; font-size: 17px; line-height: 1.2; font-weight: 750; }
 .m-dialog p { margin: 0 0 12px; font-size: 16px; line-height: 1.45; }
@@ -59,7 +59,7 @@
 .m-product-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: 30px; align-items: start; }
 .m-product-picture { overflow: hidden; border-radius: var(--radius-product); background: #ebdfcb; }
 .m-product-picture img { width: 100%; height: auto; display: block; }
-.m-dialog h3.m-product-name { margin: 0 0 16px; font-family: var(--font-display); font-weight: 400; font-size: 28px; line-height: 1.15; letter-spacing: -.02em; color: var(--tomato); }
+.m-dialog h3.m-product-name { margin: 0 0 16px; font-weight: 750; font-size: 28px; line-height: 1.15; letter-spacing: -.034em; color: var(--tomato); }
 .m-product-specs { margin: 12px 0 20px; }
 .m-product-specs > div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-bottom: 1px solid #ddd2c3; }
 .m-product-specs dt { font-size: 14px; color: #675344; }

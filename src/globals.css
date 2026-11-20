@@ -1,15 +1,8 @@
 @import "./drawer.css";
 @import "./scene.css";
-@font-face {
-  font-family: "Yeseva One";
-  src: url("../fonts/yeseva-one.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
+@import "./prichudy.css";
 :root {
   --paper:#f5f2e9; --ink:#392721; --tomato:#ad3728; --pink:#eda1bd; --butter:#f3dfb5; --sun:#ffcf54;
-  --font-display:"Yeseva One",Georgia,serif;
   --radius-feature:24px; --radius-product:18px;
   font: 400 16px/1.45 Inter,Arial,sans-serif; color:var(--ink); background:var(--paper); -webkit-font-smoothing:antialiased;
 }
@@ -25,7 +18,7 @@ h1,h2,p {margin:0}
 .skip {position:fixed;top:8px;left:8px;z-index:80;transform:translateY(-160%);background:white;padding:12px}
 .skip:focus {transform:none}
 
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+html { scroll-behavior: smooth; scroll-padding-top: 124px; }
 .mast, footer { background: var(--tomato); color: var(--paper); }
 .mast {
   position: sticky;
@@ -36,11 +29,10 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   display: grid;
   grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
   align-items: center;
-  height: 80px;
+  height: 124px;
   gap: 12px;
 }
 .wordmark { display: inline-flex; color: inherit; line-height: 1; }
-.brand-lettering { display: block; width: 174px; height: 48px; }
 .mast-inner > .wordmark { grid-column: 2; grid-row: 1; justify-self: center; }
 .mast-inner > .menu-toggle { grid-column: 1; grid-row: 1; justify-self: start; margin-left: -8px; }
 .mast .mast-cta {
@@ -64,9 +56,9 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .foot button { padding: 12px 3px; font-size: 15px; font-weight: 600; background: transparent; border: 0; }
 .foot button:hover { color: var(--sun); }
 .intro {display:flex;align-items:flex-end;justify-content:space-between;gap:26px;padding:clamp(37px,4.5vw,79px) 0 clamp(26px,2.8vw,50px)}
-.intro h1,#collection h2,.how h2,.bill h2 {font-family:var(--font-display);font-weight:400;letter-spacing:-.025em;line-height:1.08;text-wrap:balance}
-.intro h1 {font-size:clamp(60px,7.2vw,112px);color:var(--tomato)}
-.intro p {max-width:295px;margin:0 1% .2em 0;font-size:clamp(15px,1.16vw,19px);font-weight:550;letter-spacing:-.027em;line-height:1.34}
+.intro h1,#collection h2,.how h2,.bill h2 {font-weight:780;letter-spacing:-.061em;line-height:.98}
+.intro h1 {max-width:13ch;font-size:clamp(49px,6.3vw,100px);color:var(--tomato);text-wrap:balance}
+.intro p {max-width:335px;margin:0 1% .2em 0;font-size:clamp(15px,1.35vw,20px);font-weight:550;letter-spacing:-.027em;line-height:1.4}
 .duo {display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .bill {position:relative;isolation:isolate;overflow:hidden;border-radius:var(--radius-feature);min-height:clamp(310px,28.5vw,455px)}
 .gloves {background:var(--pink);color:#5c243d}
@@ -124,13 +116,11 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 }
 @media(max-width:620px){
   .bounds {width:calc(100% - 32px)}
-  html { scroll-padding-top: 78px; }
-  .mast-inner { height: 68px; gap: 8px; }
-  .mast .brand-lettering { width: 130px; height: 40px; }
+  html { scroll-padding-top: 103px; }
+  .mast-inner { height: 98px; gap: 8px; }
   .mast .mast-cta { border: 0; padding: 8px 0 8px 6px; font-size: 12px; gap: 4px; }
   .mast .mast-cta svg { width: 14px; height: 14px; }
-  .foot .brand-lettering { width: 146px; height: 42px; }
-  .intro {padding:31px 0 21px;gap:10px}.intro h1 {font-size:clamp(48px,12.35vw,76px)}.intro p {font-size:15px;max-width:350px;line-height:1.35}
+  .intro {padding:31px 0 21px;gap:14px}.intro h1 {font-size:clamp(36px,9vw,60px)}.intro p {font-size:15px;max-width:350px;line-height:1.4}
   .duo {grid-template-columns:1fr;gap:8px}.bill {min-height:clamp(169px,46vw,250px)}
   .bill h2 {font-size:clamp(32px,8.7vw,47px)}.bill-text {left:5%;top:11%;bottom:10%}
   .bill button {font-size:13px;padding:6px 12px;gap:7px;min-height:40px}
