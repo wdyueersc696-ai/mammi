@@ -22,12 +22,12 @@ const styles: Record<string, string> = {
 };
 
 const photos: Record<string, string> = {
-  stripes: "stripes.webp",
-  blocks: "blocks-v4.webp",
-  polka: "polka-v2.webp",
-  horses: "horses-v2.webp",
-  waves: "waves.webp",
-  lines: "lines.webp",
+  stripes: "stripes-final-20261122.webp",
+  blocks: "blocks-final-20261122.webp",
+  polka: "polka-final-20261122.webp",
+  horses: "horses-final-20261122.webp",
+  waves: "waves-final-20261122.webp",
+  lines: "lines-final-20261122.webp",
   hearts: "hearts.webp",
 };
 

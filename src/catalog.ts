@@ -28,7 +28,7 @@ function product(
 
 export const catalog: CatalogProduct[] = [
   product("mittens-stripes", "mittens", "Туда сюда", "Розово-зелёная полоска", "mittens-stripes-v3", "туда / сюда"),
-  product("mittens-blocks", "mittens", "Пятое десятое", "Красные и сиреневые блоки с тонким жёлтым кантом", "mittens-blocks-v3", "пятое / десятое"),
+  product("mittens-blocks", "mittens", "Пятое десятое", "Красные и сиреневые блоки с тонким жёлтым кантом", "mittens-blocks-hem-v4", "пятое / десятое"),
   product("mittens-polka", "mittens", "Пу пупу", "Розовый горошек на бордовом", "mittens-polka-v3", "пу / пупу"),
   product("mittens-horses", "mittens", "Тоси Боси", "Красные кони на молочном", "mittens-horses-v3", "тоси / боси"),
   product("mittens-waves", "mittens", "Сикс севен", "Красная волна с молочным кантом на голубом", "mittens-waves-v3", "СИКС / СЕВЕН"),
