@@ -1,4 +1,5 @@
 import { shopConfig } from "./shop-config";
+import PaymentPrint from "./PaymentPrint";
 
 function Arrow() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>;
@@ -16,26 +17,21 @@ export default function DeliveryPage() {
       </nav>
 
       <header className="delivery-heading">
-        <p className="delivery-eyebrow">Из Петербурга — к вашим прогулкам</p>
-        <h1>Доставка и оплата</h1>
-        <p className="delivery-lead">Выбирайте свои «Причуды», а здесь можно узнать, как получить заказ и оплатить покупку.</p>
+        <div className="delivery-postcard-copy">
+          <h1>Доставка<br /> и оплата</h1>
+          <p className="delivery-lead">Из Петербурга по России и в Беларусь. Варежки и чехлы можно получить в пункте выдачи или у курьера.</p>
+          <nav className="delivery-jumps" aria-label="На этой странице">
+            <a href="#delivery-shipping">О доставке ↓</a>
+            <a href="#delivery-payment">Об оплате ↓</a>
+          </nav>
+        </div>
+        <img className="delivery-postcard-art" src="./illustrations/prichudy/friends-delivery.webp" width="1440" height="960"
+          alt="Две героини везут на санках по Петербургу коробку с варежками. На бирке — «Причуды store»." fetchPriority="high" />
       </header>
 
-      <div className="delivery-photos">
-        <figure>
-          <img src="./lookbook/lines-final-20261122.webp" alt="Девушка на прогулке в Петербурге в голубых полосатых варежках «Хочу на ручки»" width="1122" height="1402" fetchPriority="high" />
-          <figcaption>Для долгих прогулок и маленьких радостей</figcaption>
-        </figure>
-        <figure>
-          <img src="./lookbook/polka-final-20261122.webp" alt="Девушка у Исаакиевского собора в бордовых варежках «Пу пупу» с розовым горошком" width="1122" height="1402" loading="lazy" />
-          <figcaption>Из города, где умеют ценить тепло</figcaption>
-        </figure>
-      </div>
-
       <div className="delivery-content">
-        <section className="delivery-shipping" aria-labelledby="delivery-shipping-title">
+        <section id="delivery-shipping" className="delivery-shipping" aria-labelledby="delivery-shipping-title">
           <div className="delivery-section-heading">
-            <p className="delivery-eyebrow">Как получить заказ</p>
             <h2 id="delivery-shipping-title">Доставка</h2>
             <p>Курьером до двери или в удобный пункт выдачи — выбирайте подходящий вариант при оформлении.</p>
           </div>
@@ -70,27 +66,7 @@ export default function DeliveryPage() {
           </section>
         </section>
 
-        <section className="delivery-payment" aria-labelledby="delivery-payment-title">
-          <p className="delivery-eyebrow">Спокойно и понятно</p>
-          <h2 id="delivery-payment-title">Оплата</h2>
-          <div className="delivery-payment-method">
-            <span className="delivery-payment-symbol" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="4" y="7" width="24" height="18" rx="3" /><path d="M4 13h24M9 20h6" strokeLinecap="round" /></svg></span>
-            <div><h3>Робокасса</h3><p>Онлайн-оплата заказа</p></div>
-          </div>
-          {shopConfig.checkoutEnabled ? (
-            <>
-              <p>После проверки заказа вы перейдёте на защищённую страницу Робокассы. Доступные способы оплаты будут показаны там.</p>
-              <p>Перед оплатой проверьте состав заказа, стоимость доставки и контактные данные. Укажите действующую электронную почту для сообщений о покупке.</p>
-            </>
-          ) : (
-            <>
-              <p>Планируем принимать оплату через Робокассу. Онлайн-покупки откроются после подключения сервиса.</p>
-              <p>Пока можно собрать корзину и выбрать доставку. Оплата на сайте ещё недоступна, деньги не списываются.</p>
-            </>
-          )}
-          <a className="delivery-action delivery-action-primary" href="./cart.html">Перейти в корзину <Arrow /></a>
-          <p className="delivery-payment-privacy">О том, как мы обращаемся с данными, — в <a href="./privacy.html">политике обработки персональных данных</a>.</p>
-        </section>
+        <div id="delivery-payment"><PaymentPrint /></div>
       </div>
 
       {hasContacts && (

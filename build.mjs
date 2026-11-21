@@ -24,7 +24,7 @@ const serverBundle = await build({
 });
 const compiled = { exports: {} };
 new Function("require", "module", "exports", serverBundle.outputFiles[0].text)(require, compiled, compiled.exports);
-const styles = ["src/globals.css", "src/dialogs.css", "src/lookbook.css", "src/product-facts.css", "src/reference-theme.css", "src/commerce.css", "src/cart-drawer.css", "src/checkout.css", "src/delivery.css"];
+const styles = ["src/globals.css", "src/dialogs.css", "src/lookbook.css", "src/product-facts.css", "src/reference-theme.css", "src/commerce.css", "src/cart-drawer.css", "src/checkout.css", "src/delivery.css", "src/payment-print.css"];
 const versionHash = createHash("sha256");
 for (const file of ["assets/storefront.js", ...styles, "src/drawer.css", "src/scene.css", "src/prichudy.css", "src/snowfall.css", "fonts/yeseva-one.css", "fonts/lt-remark-regular.otf"]) {
   versionHash.update(await readFile(new URL(file, import.meta.url)));

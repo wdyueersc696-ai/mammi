@@ -1,0 +1,103 @@
+.payment-print {
+  --print-ink: #572433;
+  --print-paper: #fff6de;
+  align-self: start;
+  width: min(100%, 34rem);
+  margin-inline: auto;
+  position: relative;
+  padding-bottom: 8px;
+  color: var(--print-ink);
+  background: linear-gradient(135deg, var(--print-paper) 25%, transparent 25%) left bottom / 16px 16px repeat-x,
+              linear-gradient(225deg, var(--print-paper) 25%, transparent 25%) left bottom / 16px 16px repeat-x;
+  filter: drop-shadow(0 3px 2px rgb(89 56 48 / 14%));
+}
+
+.payment-print-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px clamp(18px, 3vw, 30px);
+  background: #f1c7d0;
+  border-top: 5px solid var(--print-ink);
+}
+.delivery-page .payment-print-heading h2 {
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1;
+}
+.payment-print-sign {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  color: var(--print-ink);
+}
+.payment-print-sign .brand-lockup--type { width: clamp(75px, 10vw, 105px); }
+.payment-print-sign i {
+  font: italic 17px/1 Georgia, serif;
+  transform: rotate(-6deg);
+}
+.payment-print-scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff09c;
+}
+.payment-print-paper {
+  padding: 0 clamp(18px, 3vw, 30px) 24px;
+  background: var(--print-paper);
+}
+.payment-print-methods > div { padding: 18px 0; border-bottom: 1px dashed #a88e75; }
+.delivery-page .payment-print-methods h3 {
+  margin: 0;
+  color: var(--print-ink);
+  font: 600 14px/1.4 Inter, Arial, sans-serif;
+  letter-spacing: 0;
+}
+.payment-print-full {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px clamp(8px, 2vw, 16px);
+  margin: 7px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.payment-print-full li { min-height: 36px; display: flex; align-items: center; }
+.payment-print-full img { display: block; width: 70px; height: 29px; }
+.payment-print-card {
+  gap: 7px;
+  font: 550 13px/1.3 Inter, Arial, sans-serif;
+}
+.payment-print-card > span {
+  display: inline-block;
+  width: 25px;
+  height: 17px;
+  border: 1.5px solid var(--print-ink);
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #ebbdc9 3px, var(--print-ink) 3px 6px, #ebbdc9 6px);
+  transform: rotate(-5deg);
+}
+.payment-print-installments {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.payment-print-installments img { display: block; width: 106px; height: auto; }
+.delivery-page .payment-print-status {
+  margin: 18px 0 12px;
+  font: 400 14px/1.55 Inter, Arial, sans-serif;
+  color: #513d36;
+}
+.delivery-page .payment-print-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  color: var(--print-ink);
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.payment-print-link span { font: 22px/1 Arial, sans-serif; }
