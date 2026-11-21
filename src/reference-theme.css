@@ -1,0 +1,70 @@
+/* Printesso reference: wine header, blush lettering and a soft pink text frame.
+   Deliberately scoped: the approved page background, cards and logo layout stay intact. */
+@font-face {
+  font-family: "LT Remark";
+  src: url("../fonts/lt-remark-regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.mast {
+  --mast-background: rgb(97 39 49 / 76%);
+  --mast-foreground: #efeedf;
+}
+
+.mast .brand-lettering {
+  color: #ffd8e2;
+}
+
+.intro {
+  --intro-font: "LT Remark", Georgia, serif;
+  --intro-color: #612731;
+  margin-block: clamp(20px, 2.4vw, 36px);
+  padding: clamp(28px, 3.5vw, 50px);
+  gap: clamp(26px, 4vw, 64px);
+  border-radius: 22px;
+  background: #f2d0d9;
+  color: var(--intro-color);
+}
+
+.intro h1 {
+  font-family: var(--intro-font);
+  font-size: clamp(46px, 5.4vw, 78px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -.045em;
+  color: var(--intro-color);
+}
+
+.intro p {
+  color: var(--intro-color);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+  .intro { gap: 22px; }
+  .intro h1 { max-width: 18ch; }
+}
+
+@media (max-width: 620px) {
+  .intro {
+    margin-block: 18px;
+    padding: 26px 24px 28px;
+    gap: 18px;
+  }
+  .intro h1 {
+    max-width: 14ch;
+    font-size: clamp(38px, 10.3vw, 58px);
+    line-height: 1.04;
+  }
+  .intro p {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .mast { background: #612731; }
+}

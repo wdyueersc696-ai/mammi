@@ -1,0 +1,9 @@
+LT Remark Regular, version 2.001, Copyright LyonsType 2023.
+Unmodified original OTF from the author's distribution at:
+https://www.dafont.com/lt-remark.font
+https://dl.dafont.com/dl/?f=lt_remark
+
+Author's licensing statement:
+https://lyonstype4.wixsite.com/lyonstype-beta/post/sil-ofl-license
+
+License text in OFL-LT-Remark.txt was extracted verbatim from the font's name table (name ID 13).

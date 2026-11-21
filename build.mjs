@@ -26,7 +26,7 @@ const compiled = { exports: {} };
 new Function("require", "module", "exports", serverBundle.outputFiles[0].text)(require, compiled, compiled.exports);
 const content = renderToString(createElement(compiled.exports.default));
 const versionHash = createHash("sha256");
-for (const file of ["assets/storefront.js", "src/globals.css", "src/drawer.css", "src/scene.css", "src/dialogs.css", "src/prichudy.css", "src/snowfall.css", "fonts/yeseva-one.css"]) {
+for (const file of ["assets/storefront.js", "src/globals.css", "src/drawer.css", "src/scene.css", "src/dialogs.css", "src/prichudy.css", "src/snowfall.css", "src/lookbook.css", "src/product-facts.css", "src/reference-theme.css", "fonts/yeseva-one.css", "fonts/lt-remark-regular.otf"]) {
   versionHash.update(await readFile(new URL(file, import.meta.url)));
 }
 const version = versionHash.digest("hex").slice(0, 12);
@@ -35,7 +35,7 @@ await writeFile(new URL("./index.html", import.meta.url), `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ad3728">
-<meta name="description" content="Коллекция «Причуды». Женские варежки и зимние чехлы на коляску в четырёх принтах.">
+<meta name="description" content="Коллекция «Причуды»: семь расцветок женских варежек и пять расцветок зимних чехлов на коляску. Размеры, материалы и образы для прогулок.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Причуды — варежки и чехлы на коляску</title>
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
@@ -44,5 +44,8 @@ await writeFile(new URL("./index.html", import.meta.url), `<!doctype html>
 <link rel="stylesheet" href="./fonts/yeseva-one.css">
 <link rel="stylesheet" href="./src/globals.css?v=${version}">
 <link rel="stylesheet" href="./src/dialogs.css?v=${version}">
+<link rel="stylesheet" href="./src/lookbook.css?v=${version}">
+<link rel="stylesheet" href="./src/product-facts.css?v=${version}">
+<link rel="stylesheet" href="./src/reference-theme.css?v=${version}">
 <script defer src="./assets/storefront.js?v=${version}"></script>
 </head><body><div id="storefront">${content}</div><noscript>Для переключения принтов и просмотра формы включите JavaScript.</noscript></body></html>\n`);

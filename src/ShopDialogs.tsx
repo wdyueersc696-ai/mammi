@@ -1,17 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import ProductFacts from "./ProductFacts";
+import type { CatalogProduct } from "./catalog";
 
 type Page = "product" | "order" | "policy" | "terms" | "complete";
 type Props = {
   modal: "order" | "policy" | null;
   onClose: () => void;
-  kind: "mittens" | "cover";
-  print: "stripes" | "dots" | "geese" | "horses";
+  product: CatalogProduct;
 };
 
-const names = {
-  stripes: "Туда сюда", dots: "Ой всё",
-  geese: "Ни пуха ни пера", horses: "Конь огонь",
-};
 const titles = {
   product: "Об изделии",
   order: "Пример предзаказа",
@@ -23,13 +20,6 @@ const titles = {
 const descriptions = {
   mittens: {
     intro: "Утеплённые варежки для зимних прогулок с коляской, поездок на санках и дороги домой за руку. Внутри предусмотрены мягкий флис и отдельный слой утеплителя.",
-    details: [
-      ["Верх", "Плащёвая ткань дюспо с нашим принтом"],
-      ["Подкладка", "Мягкий флис"],
-      ["Утепление", "Отдельный синтетический слой"],
-      ["Детали", "Сборка на запястье и съёмный шнур, чтобы варежки оставались вместе"],
-    ],
-    note: "Сейчас готовим первый образец. После примерки уточним размеры, окончательный состав и рекомендации по уходу.",
   },
   cover: {
     intro: "Готовим утеплённый чехол для зимних прогулок с коляской. Спереди предусмотрены молния и прозрачное открываемое окно. Принт можно подобрать в тон варежкам.",
@@ -43,12 +33,13 @@ const descriptions = {
   },
 };
 
-function PreviewDialog({ modal, onClose, kind, print }: Props & { modal: "order" | "policy" }) {
+function PreviewDialog({ modal, onClose, product: selectedProduct }: Props & { modal: "order" | "policy" }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const returnTarget = useRef<string | null>(null);
   const [page, setPage] = useState<Page>(modal === "order" ? "product" : "policy");
   const [accepted, setAccepted] = useState(false);
+  const kind = selectedProduct.kind;
   const product = kind === "mittens" ? "Варежки" : "Чехол для коляски";
   const description = descriptions[kind];
 
@@ -92,22 +83,24 @@ function PreviewDialog({ modal, onClose, kind, print }: Props & { modal: "order"
       <h2 id="dialog-title" ref={heading} tabIndex={-1}>{page === "product" ? product : titles[page]}</h2>
       {page === "product" && <div className="m-product-layout">
         <div className={`m-product-picture m-product-picture--${kind}`}>
-          <img src={`./products/${kind}-${print}.webp`} alt={`${product} «${names[print]}», эскиз`} width="460" height={kind === "mittens" ? 460 : 614} />
+          <img src={selectedProduct.image} alt={`${product} «${selectedProduct.title}», эскиз`} width="460" height={kind === "mittens" ? 460 : 614} />
         </div>
         <div className="m-product-description">
-          <h3 className="m-product-name">{names[print]}</h3>
+          <h3 className="m-product-name">{selectedProduct.title}</h3>
           <p>{description.intro}</p>
-          <h3>Материалы и детали</h3>
-          <dl className="m-product-specs">{description.details.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-          <p className="m-product-note">{description.note}</p>
+          {kind === "mittens" ? <ProductFacts confirmed={true} /> : <>
+            <h3>Материалы и детали</h3>
+            <dl className="m-product-specs">{descriptions.cover.details.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+            <p className="m-product-note">{descriptions.cover.note}</p>
+          </>}
           <button type="button" className="m-dialog-main" onClick={() => setPage("order")}>Посмотреть форму предзаказа</button>
           <p className="m-product-availability">Предзаказ пока не открыт. Цена и сроки появятся здесь позже.</p>
         </div>
       </div>}
       {page === "order" && <>
         <div className="m-dialog-product">
-          <img src={`./products/${kind}-${print}-460.webp`} alt="" width="82" height="82" />
-          <div><span>{product}</span><strong>{names[print]}</strong></div>
+          <img src={selectedProduct.thumbnail} alt="" width="82" height="82" />
+          <div><span>{product}</span><strong>{selectedProduct.title}</strong></div>
         </div>
         <button type="button" className="m-dialog-link m-product-back" onClick={() => setPage("product")}>К описанию и составу</button>
         <p>Предзаказ откроется позже. Пока можно посмотреть форму с примером электронной почты.</p>
@@ -142,7 +135,7 @@ function PreviewDialog({ modal, onClose, kind, print }: Props & { modal: "order"
         <button type="button" className="m-dialog-main" onClick={closeOrBack}>Вернуться к форме</button>
       </>}
       {page === "complete" && <>
-        <p className="m-dialog-receipt">{product} «{names[print]}»</p>
+        <p className="m-dialog-receipt">{product} «{selectedProduct.title}»</p>
         <p>Готово! Вы посмотрели пример. Заявка в магазин не отправлялась.</p>
         <button type="button" className="m-dialog-main" onClick={onClose}>К коллекции</button>
       </>}
