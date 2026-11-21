@@ -4,7 +4,6 @@ import type { KeyboardEvent, MouseEvent, TouchEvent } from "react";
 export type LookbookItem = {
   id: string;
   title: string;
-  location: string;
   style: string;
   image: string;
 };
@@ -25,6 +24,7 @@ export default function Lookbook({ items }: LookbookProps) {
   const previousOverflow = useRef<string | null>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const backdropPress = useRef(false);
+  const suppressPreviewClick = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const index = Math.min(activeIndex, Math.max(items.length - 1, 0));
@@ -52,7 +52,123 @@ export default function Lookbook({ items }: LookbookProps) {
     if (!items.length && dialog.current?.open) dialog.current.close();
   }, [items.length]);
 
+  useEffect(() => {
+    const element = track.current;
+    if (!element || items.length < 2) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let cycleWidth = 0;
+    let position = element.scrollLeft;
+    let visible = false;
+    let keyboardFocus = false;
+    let touching = false;
+    let pressedPointer: number | null = null;
+    let pressedAt = 0;
+    let pressedX = 0;
+    let pressedY = 0;
+    let previousTime = 0;
+    let frame = 0;
+
+    function measure() {
+      element.dataset.loop = String(!reducedMotion.matches);
+      const first = element.children[0] as HTMLElement;
+      const repeat = element.children[items.length] as HTMLElement;
+      cycleWidth = repeat.offsetLeft - first.offsetLeft;
+      position = element.scrollLeft;
+    }
+
+    function press(event: PointerEvent) {
+      if (pressedPointer !== null || event.button !== 0) return;
+      keyboardFocus = false;
+      pressedPointer = event.pointerId;
+      pressedAt = performance.now();
+      pressedX = event.clientX;
+      pressedY = event.clientY;
+      suppressPreviewClick.current = false;
+    }
+
+    function release(event: PointerEvent) {
+      if (event.pointerId !== pressedPointer) return;
+      suppressPreviewClick.current = event.type === "pointercancel"
+        || performance.now() - pressedAt > 250
+        || Math.hypot(event.clientX - pressedX, event.clientY - pressedY) > 8;
+      pressedPointer = null;
+    }
+
+    function focus(event: FocusEvent) {
+      keyboardFocus = event.target instanceof HTMLElement && event.target.matches(":focus-visible");
+    }
+
+    function blur(event: FocusEvent) {
+      if (!element.contains(event.relatedTarget as Node | null)) keyboardFocus = false;
+    }
+
+    function releaseWindow() {
+      pressedPointer = null;
+      touching = false;
+    }
+
+    function startTouch() {
+      touching = true;
+      keyboardFocus = false;
+    }
+
+    function endTouch(event: globalThis.TouchEvent) {
+      touching = event.touches.length > 0;
+    }
+
+    function animate(time: number) {
+      const elapsed = previousTime ? Math.min(time - previousTime, 64) / 1000 : 0;
+      previousTime = time;
+      // Keep a fractional position for a steady 18 px/s, including high-refresh screens.
+      if (Math.abs(element.scrollLeft - position) > 1) position = element.scrollLeft;
+      if (!reducedMotion.matches && visible && !document.hidden && pressedPointer === null && !touching
+        && !keyboardFocus && !dialog.current?.open && cycleWidth > 0) {
+        position = (position + elapsed * 18) % cycleWidth;
+        element.scrollLeft = position;
+      }
+      frame = requestAnimationFrame(animate);
+    }
+
+    const resize = new ResizeObserver(measure);
+    const visibility = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
+    measure();
+    resize.observe(element);
+    visibility.observe(element);
+    reducedMotion.addEventListener("change", measure);
+    element.addEventListener("pointerdown", press);
+    element.addEventListener("touchstart", startTouch, { passive: true });
+    element.addEventListener("focusin", focus);
+    element.addEventListener("focusout", blur);
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+    window.addEventListener("touchend", endTouch, { passive: true });
+    window.addEventListener("touchcancel", endTouch, { passive: true });
+    window.addEventListener("blur", releaseWindow);
+    frame = requestAnimationFrame(animate);
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      visibility.disconnect();
+      reducedMotion.removeEventListener("change", measure);
+      element.removeEventListener("pointerdown", press);
+      element.removeEventListener("touchstart", startTouch);
+      element.removeEventListener("focusin", focus);
+      element.removeEventListener("focusout", blur);
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
+      window.removeEventListener("touchend", endTouch);
+      window.removeEventListener("touchcancel", endTouch);
+      window.removeEventListener("blur", releaseWindow);
+      delete element.dataset.loop;
+    };
+  }, [items.length]);
+
   function openAt(nextIndex: number, event: MouseEvent<HTMLButtonElement>) {
+    if (event.detail > 0 && suppressPreviewClick.current) {
+      suppressPreviewClick.current = false;
+      return;
+    }
     if (!dialog.current) return;
     opener.current = event.currentTarget;
     setActiveIndex(nextIndex);
@@ -94,9 +210,16 @@ export default function Lookbook({ items }: LookbookProps) {
   }
 
   function scrollPreview(direction: number) {
-    if (!track.current) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.current.scrollBy({ left: direction * track.current.clientWidth * 0.78, behavior: reduced ? "auto" : "smooth" });
+    const element = track.current;
+    if (!element) return;
+    let nextPosition = element.scrollLeft + direction * element.clientWidth * 0.78;
+    if (element.dataset.loop === "true") {
+      const first = element.children[0] as HTMLElement;
+      const repeat = element.children[items.length] as HTMLElement;
+      const cycleWidth = repeat.offsetLeft - first.offsetLeft;
+      nextPosition = (nextPosition % cycleWidth + cycleWidth) % cycleWidth;
+    }
+    element.scrollTo({ left: nextPosition, behavior: "instant" });
   }
 
   if (!item) return null;
@@ -105,7 +228,6 @@ export default function Lookbook({ items }: LookbookProps) {
     <section className="lb-section bounds" aria-labelledby={`lb-heading-${uid}`}>
       <div className="lb-heading-row">
         <div>
-          <p className="lb-eyebrow">Санкт-Петербург · разные образы</p>
           <h2 className="lb-heading" id={`lb-heading-${uid}`}>Причуды в городе</h2>
           <p className="lb-intro">К пуховику, пальто и вашему настроению. Посмотрите, как носить наши варежки.</p>
         </div>
@@ -115,20 +237,19 @@ export default function Lookbook({ items }: LookbookProps) {
         </div>
       </div>
 
-      <ul className="lb-track" id={trackId} ref={track}>
-        {items.map((entry, entryIndex) => (
-          <li className="lb-card" key={entry.id}>
-            <button className="lb-card-button" type="button" aria-haspopup="dialog" aria-controls={dialogId} aria-label={`Открыть образ ${entryIndex + 1} из ${items.length}: ${entry.title}, ${entry.location}`} onClick={event => openAt(entryIndex, event)}>
+      <ul className="lb-track" id={trackId} ref={track} onContextMenu={event => event.preventDefault()}>
+        {[...items, ...items].map((entry, entryIndex) => (
+          <li className={`lb-card${entryIndex >= items.length ? " lb-card-copy" : ""}`} key={`${entryIndex}-${entry.id}`} aria-hidden={entryIndex >= items.length ? true : undefined}>
+            <button className="lb-card-button" type="button" tabIndex={entryIndex >= items.length ? -1 : undefined} aria-haspopup="dialog" aria-controls={dialogId} aria-label={`Открыть образ ${entryIndex % items.length + 1} из ${items.length}: ${entry.title}`} onClick={event => openAt(entryIndex % items.length, event)}>
               <span className="lb-card-image">
-                <img src={entry.image} alt={`Модель в варежках «${entry.title}». ${entry.style}. ${entry.location}`} loading="lazy" decoding="async" width="1000" height="1250" />
-                <span className="lb-card-open" aria-hidden="true">Смотреть образ <span>↗</span></span>
+                <img src={entry.image} alt={`Модель в варежках «${entry.title}». ${entry.style}`} loading="lazy" decoding="async" width="1000" height="1250" draggable={false} />
+                <span className="lb-card-open" aria-hidden="true">Смотреть образ</span>
               </span>
-              <span className="lb-card-caption"><strong>{entry.title}</strong><span>{entry.location}</span></span>
+              <span className="lb-card-caption"><strong>{entry.title}</strong></span>
             </button>
           </li>
         ))}
       </ul>
-      <div className="lb-footnote"><span>Листайте и открывайте фотографии</span><span>Образы созданы с помощью ИИ.</span></div>
 
       <dialog
         className="lb-dialog"
@@ -151,18 +272,17 @@ export default function Lookbook({ items }: LookbookProps) {
 
           <div className="lb-dialog-content">
             <div className="lb-photo" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onTouchCancel={() => { touchStart.current = null; }}>
-              <img src={item.image} alt={`Модель в варежках «${item.title}». ${item.style}. ${item.location}`} width="1000" height="1250" decoding="async" draggable={false} />
+              <img src={item.image} alt={`Модель в варежках «${item.title}». ${item.style}`} width="1000" height="1250" decoding="async" draggable={false} />
             </div>
             <div className="lb-detail">
               <p className="lb-eyebrow">Варежки «Причуды»</p>
               <h3 className="lb-dialog-title" id={`lb-dialog-title-${uid}`}>{item.title}</h3>
               <div id={`lb-dialog-description-${uid}`}>
-                <p className="lb-location">{item.location}</p>
                 <p className="lb-style">{item.style}</p>
               </div>
               <div className="lb-pagination">
                 <button className="lb-icon-button" type="button" onClick={() => changeImage(-1)} disabled={items.length < 2} aria-label="Предыдущий образ"><Arrow /></button>
-                <p className="lb-count" role="status" aria-live="polite" aria-atomic="true"><span className="lb-sr-only">Образ </span>{index + 1} <span aria-hidden="true">/</span><span className="lb-sr-only"> из </span> {items.length}<span className="lb-sr-only">. {item.title}, {item.location}</span></p>
+                <p className="lb-count" role="status" aria-live="polite" aria-atomic="true"><span className="lb-sr-only">Образ </span>{index + 1} <span aria-hidden="true">/</span><span className="lb-sr-only"> из </span> {items.length}<span className="lb-sr-only">. {item.title}</span></p>
                 <button className="lb-icon-button" type="button" onClick={() => changeImage(1)} disabled={items.length < 2} aria-label="Следующий образ"><Arrow next /></button>
               </div>
               <p className="lb-dialog-hint">Листайте свайпом или стрелками</p>
@@ -174,7 +294,6 @@ export default function Lookbook({ items }: LookbookProps) {
                   </button>
                 ))}
               </div>
-              <p className="lb-ai-caption">Образы созданы с помощью ИИ.</p>
             </div>
           </div>
         </div>

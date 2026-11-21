@@ -16,16 +16,17 @@
 .lb-icon-button:disabled { opacity: .35; cursor: default; }
 .lb-section :where(button):focus-visible { outline: 3px solid var(--lb-accent); outline-offset: 4px; }
 .lb-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 40px) / 3); gap: 20px; margin: 0; padding: 5px 5px 16px; list-style: none; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 5px; scrollbar-color: var(--lb-accent) transparent; scrollbar-width: thin; }
+.lb-track[data-loop="true"] { scroll-snap-type: none; scrollbar-width: none; }
+.lb-track[data-loop="true"]::-webkit-scrollbar { display: none; }
+.lb-card-copy { display: none; }
+.lb-track[data-loop="true"] .lb-card-copy { display: block; }
 .lb-card { min-width: 0; scroll-snap-align: start; }
-.lb-card-button { display: block; width: 100%; padding: 0; border: 0; border-radius: 18px; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.lb-card-button { display: block; width: 100%; padding: 0; border: 0; border-radius: 18px; background: transparent; color: inherit; text-align: left; cursor: pointer; user-select: none; -webkit-touch-callout: none; }
 .lb-card-image { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 18px; background: #e4dbce; }
 .lb-card-image > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; transition: transform 250ms ease; }
 .lb-card-open { position: absolute; inset: auto 14px 14px; display: flex; justify-content: space-between; align-items: center; padding: 11px 14px; border: 1px solid rgb(255 255 255 / 45%); border-radius: 30px; background: rgb(245 242 233 / 92%); color: var(--lb-ink); font-size: 12px; font-weight: 600; }
-.lb-card-open > span { font-size: 19px; line-height: 1; }
 .lb-card-caption { display: grid; gap: 4px; padding: 14px 2px 2px; }
 .lb-card-caption strong { color: var(--lb-accent); font-size: 18px; font-weight: 650; line-height: 1.25; }
-.lb-card-caption > span { font-size: 13px; line-height: 1.45; }
-.lb-footnote { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; margin: 13px 5px 0; font-size: 12px; line-height: 1.5; color: #6c5c54; }
 .lb-dialog { position: fixed; inset: 0; width: min(1080px, calc(100vw - 40px)); max-width: none; max-height: calc(100dvh - 40px); margin: auto; padding: 0; border: 0; border-radius: 22px; overflow: auto; overscroll-behavior: contain; background: var(--lb-paper); color: var(--lb-ink); }
 .lb-dialog::backdrop { background: rgb(36 22 18 / 72%); }
 .lb-dialog-panel { padding: 18px; }
@@ -37,7 +38,6 @@
 .lb-photo > img { display: block; width: 100%; height: 100%; max-height: min(74dvh, 760px); object-fit: contain; user-select: none; }
 .lb-detail { display: flex; flex-direction: column; align-self: center; min-width: 0; padding: 16px 16px 16px 0; }
 .lb-dialog-title { margin: 0 0 18px; color: var(--lb-accent); font-family: var(--font-editorial, Georgia, serif); font-size: clamp(32px, 4vw, 48px); font-weight: 400; line-height: 1.1; letter-spacing: -.025em; overflow-wrap: anywhere; }
-.lb-location { margin: 0 0 10px; font-size: 15px; font-weight: 650; }
 .lb-style { margin: 0; font-size: 14px; line-height: 1.6; }
 .lb-pagination { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 28px; }
 .lb-count { margin: 0; font-size: 15px; font-variant-numeric: tabular-nums; letter-spacing: .06em; }
@@ -47,7 +47,6 @@
 .lb-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
 .lb-thumb > span { position: absolute; right: 4px; bottom: 4px; display: grid; place-items: center; min-width: 18px; height: 18px; border-radius: 50%; background: var(--lb-paper); font-size: 10px; font-weight: 700; }
 .lb-thumb-active { border-color: var(--lb-accent); }
-.lb-ai-caption { margin: 18px 0 0; color: #6c5c54; font-size: 11px; line-height: 1.5; }
 .lb-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) { .lb-card-button:hover .lb-card-image > img { transform: scale(1.025); } }
 @media (max-width: 850px) {
@@ -58,14 +57,12 @@
 @media (max-width: 620px) {
   .lb-heading-row { align-items: flex-start; gap: 12px; margin-bottom: 20px; }
   .lb-heading { font-size: clamp(30px, 8.5vw, 44px); }
-  .lb-heading-row .lb-eyebrow { max-width: 25ch; font-size: 10px; }
   .lb-intro { font-size: 14px; }
   .lb-strip-controls { gap: 4px; padding-top: 26px; }
   .lb-strip-controls .lb-icon-button { flex-basis: 40px; width: 40px; height: 44px; padding: 9px; }
   .lb-track { grid-auto-columns: 83%; gap: 14px; }
   .lb-card-image { border-radius: 15px; }
   .lb-card-caption strong { font-size: 17px; }
-  .lb-footnote { display: grid; font-size: 11px; }
   .lb-dialog { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); border-radius: 16px; }
   .lb-dialog-panel { padding: 10px 10px max(16px, env(safe-area-inset-bottom)); }
   .lb-dialog-top { padding: 0 0 8px 5px; }
@@ -77,12 +74,10 @@
   .lb-detail > .lb-eyebrow { grid-column: 1 / -1; margin-bottom: 6px; font-size: 10px; }
   .lb-dialog-title { grid-column: 1 / -1; margin-bottom: 8px; font-size: 30px; }
   .lb-detail > div[id] { grid-column: 1 / -1; }
-  .lb-location { margin-bottom: 6px; font-size: 13px; }
   .lb-style { font-size: 13px; line-height: 1.5; }
   .lb-pagination { grid-column: 1 / -1; justify-content: center; gap: 26px; margin-top: 17px; }
   .lb-dialog-hint { grid-column: 1 / -1; margin-top: 8px; font-size: 11px; }
   .lb-thumbnails { grid-column: 1 / -1; display: flex; gap: 6px; margin-top: 16px; padding: 5px 2px; overflow-x: auto; }
   .lb-thumb { flex: 0 0 47px; height: 60px; }
-  .lb-ai-caption { grid-column: 1 / -1; margin-top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .lb-icon-button, .lb-card-image > img { transition: none; } }

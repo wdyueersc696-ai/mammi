@@ -1,16 +1,6 @@
 import { catalog } from "./catalog";
 import type { LookbookItem } from "./Lookbook";
 
-const places: Record<string, string> = {
-  stripes: "Дом Зингера",
-  blocks: "Новая Голландия",
-  polka: "Исаакиевская площадь",
-  horses: "Каток Новой Голландии",
-  waves: "Дворцовая площадь",
-  lines: "Канал Грибоедова",
-  hearts: "Таврический сад",
-};
-
 const styles: Record<string, string> = {
   stripes: "Пальто и трикотаж",
   blocks: "Сливовый пуховик и деним",
@@ -38,7 +28,6 @@ export const lookbookItems: LookbookItem[] = catalog
     return {
       id: item.id,
       title: item.title,
-      location: places[print],
       style: styles[print],
       image: `./lookbook/${photos[print]}`,
     };

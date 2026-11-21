@@ -28,7 +28,14 @@ export default function Home(){
   <button className="mast-cta" onClick={()=>see()}>Каталог <Arrow/></button>
  </div></header>
 
- <main><div className="bounds"><div className="intro"><h1>Нам хочется вас согреть.</h1><p>Мы придумали Причуды с простой мыслью. Пусть зимой будет приятно гулять и малышу, и тому, кто везёт коляску.</p></div>
+ <main><div className="bounds">
+ <div className="intro">
+  <h1>Нам хочется вас согреть</h1>
+  <div className="intro-copy">
+   <p>Мы придумали «Причуды», чтобы даже в холодные дни хотелось выйти погулять. Наши варежки согревают руки, а необычные принты и забавные надписи помогают выразить себя — выбирайте те, что вам по настроению.</p>
+   <p>А для прогулок с малышом у нас есть тёплые ветрозащитные чехлы на коляску. С яркими рисунками, чтобы и у маленького попутчика были свои «Причуды».</p>
+  </div>
+ </div>
  <div className="duo">
  <article className="bill gloves"><div className="bill-text"><h2>Варежки</h2><button onClick={()=>see("mittens")}>Выбрать принт</button></div><img className="hero-item" src="./products/hero-mittens-v3.webp" alt="Варежки «Туда сюда» в розово-зелёную полоску" fetchPriority="high"/><Snowfall/></article>
  <article className="bill covers"><div className="bill-text"><h2>Чехлы на<br/>коляску</h2><button onClick={()=>see("cover")}>Выбрать принт</button></div><img className="hero-item" src="./products/hero-cover-v3.webp" alt="Зимний чехол «Шоколадная полоска» с прозрачным окном и молнией"/><Snowfall offset={11}/></article>
