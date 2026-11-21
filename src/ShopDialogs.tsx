@@ -38,6 +38,20 @@ export default function ShopDialogs({ product, onClose, onAdd }: Props) {
       <h2 id="product-dialog-title" ref={heading} tabIndex={-1}>{isMittens ? "Варежки" : "Чехол для коляски"}</h2>
       <div className="m-product-layout">
         <div className={`m-product-picture m-product-picture--${product.kind}`}>
+          {!isMittens && <>
+            <svg width="0" height="0" aria-hidden="true" className="m-cover-filter">
+              <filter id="neutral-cover-studio" colorInterpolationFilters="sRGB" x="0" y="0" width="100%" height="100%">
+                {/* Isolate the light studio paper by its colour distance, retaining the print and contact shadows. */}
+                <feFlood floodColor="#e9d9d2" />
+                <feBlend in2="SourceGraphic" mode="difference" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -9 -9 -9 0 1.9" result="paper" />
+                <feColorMatrix in="SourceGraphic" type="saturate" values="0" />
+                <feComposite in2="paper" operator="in" />
+                <feComposite in2="SourceGraphic" operator="over" />
+              </filter>
+            </svg>
+            <span className="m-cover-backdrop" aria-hidden="true" style={{ borderImageSource: `url("${product.image}")` }} />
+          </>}
           <img src={product.image} alt={`${isMittens ? "Варежки" : "Чехол"} «${product.title}», эскиз`} width="460" height={isMittens ? 460 : 614} />
         </div>
         <div className="m-product-description">

@@ -45,7 +45,7 @@
 .cart-drawer-quantity button:hover:not(:disabled) { background: var(--cart-blush); }
 .cart-drawer-quantity button:disabled { opacity: .35; cursor: default; }
 .cart-drawer-quantity output { min-width: 23px; padding-inline: 2px; text-align: center; font-size: 14px; font-variant-numeric: tabular-nums; }
-.cart-drawer-remove { min-height: 44px; padding: 4px 0; border: 0; background: transparent; font-size: 12px !important; text-decoration: underline; text-underline-offset: 3px; }
+.cart-drawer button.cart-drawer-remove { min-height: 44px; padding: 4px 0; border: 0; background: transparent; font-size: 12px; font-weight: 600; }
 .cart-drawer-footer { flex: 0 0 auto; padding: 20px 22px max(17px, env(safe-area-inset-bottom)); border-top: 1px solid rgb(97 39 49 / 16%); background: var(--cart-paper); }
 .cart-drawer-total { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 17px; font-size: 16px; }
 .cart-drawer-total strong { font-size: 21px; font-weight: 650; font-variant-numeric: tabular-nums; }

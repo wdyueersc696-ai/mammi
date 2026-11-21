@@ -13,7 +13,7 @@
 .checkout-page :where(a, button, input, select, textarea):focus-visible { outline: 3px solid var(--checkout-wine); outline-offset: 4px; }
 .checkout-page a { color: inherit; }
 .checkout-breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; font-size: 12px; line-height: 1.5; }
-.checkout-breadcrumb a { text-decoration: underline; text-underline-offset: 3px; }
+.checkout-breadcrumb a { color: var(--checkout-wine); font-weight: 600; }
 .checkout-breadcrumb > span[aria-hidden] { opacity: .45; }
 .checkout-heading { margin-bottom: 34px; }
 .checkout-page .checkout-eyebrow { margin: 0 0 10px; color: var(--checkout-wine); font-size: 11px; font-weight: 650; line-height: 1.5; letter-spacing: .075em; text-transform: uppercase; }
@@ -24,7 +24,7 @@
 .checkout-cart-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
 .checkout-cart-heading h2 { display: flex; align-items: center; gap: 10px; font-size: 27px; line-height: 1.2; }
 .checkout-cart-heading h2 > span { display: inline-grid; min-width: 28px; height: 28px; padding: 3px 6px; place-items: center; border-radius: 50%; background: var(--checkout-blush); font-family: Inter, Arial, sans-serif; font-size: 12px; letter-spacing: 0; }
-.checkout-text-button { min-height: 44px; padding: 8px 0; border: 0; background: transparent; color: var(--checkout-wine); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.checkout-text-button { min-height: 44px; padding: 8px 0; border: 0; background: transparent; color: var(--checkout-wine); font-size: 12px; font-weight: 600; }
 .checkout-items { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgb(97 39 49 / 18%); }
 .checkout-item { display: grid; grid-template-columns: 86px minmax(0, 1fr); column-gap: 16px; row-gap: 14px; padding: 20px 0; border-bottom: 1px solid rgb(97 39 49 / 18%); }
 .checkout-item-photo { grid-column: 1; grid-row: 1; display: block; width: 86px; align-self: start; overflow: hidden; border-radius: 12px; background: #ebdfcb; }
@@ -70,7 +70,7 @@
 .checkout-address { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
 .checkout-street { grid-column: 1 / -1; }
 .checkout-delivery-note { margin: 20px 0 0; font-size: 12px; line-height: 1.65; }
-.checkout-delivery-note a, .checkout-checkbox a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.checkout-delivery-note a, .checkout-checkbox a { color: var(--checkout-wine); font-weight: 650; }
 .checkout-payment > .checkout-hint { margin-top: 12px; }
 .checkout-promo { min-width: 0; padding-bottom: 8px; border-bottom: 1px solid rgb(97 39 49 / 18%); }
 .checkout-promo-toggle { display: flex; width: 100%; min-height: 44px; justify-content: space-between; align-items: center; gap: 20px; padding: 8px 0; border: 0; background: transparent; color: var(--checkout-wine); text-align: left; font-size: 14px; font-weight: 550; }
@@ -105,7 +105,7 @@
 .checkout-result { margin-top: 20px; padding: 20px; border: 1px solid var(--checkout-wine); border-radius: 14px; background: rgb(242 208 217 / 22%); scroll-margin-top: calc(var(--mast-height, 96px) + 24px); }
 .checkout-result > p { margin: 0; font-size: 14px; line-height: 1.65; }
 .checkout-result > div { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 12px; }
-.checkout-result a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--checkout-wine); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.checkout-result a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--checkout-wine); font-size: 13px; font-weight: 600; }
 .checkout-result a svg { width: 18px; height: 18px; }
 .checkout-empty { display: grid; justify-items: center; gap: 20px; padding: 44px 22px 50px; border-radius: 22px; background: rgb(242 208 217 / 35%); text-align: center; }
 .checkout-empty > svg { width: 64px; height: 64px; color: var(--checkout-wine); }

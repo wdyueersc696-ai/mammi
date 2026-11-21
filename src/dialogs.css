@@ -59,6 +59,8 @@
 .m-product-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: 30px; align-items: start; }
 .m-product-picture { overflow: hidden; border-radius: var(--radius-product); background: #ebdfcb; }
 .m-product-picture img { width: 100%; height: auto; display: block; }
+.m-cover-backdrop { display: none; }
+.m-cover-filter { position: absolute; pointer-events: none; }
 .m-dialog h3.m-product-name { margin: 0 0 16px; font-weight: 750; font-size: 28px; line-height: 1.15; letter-spacing: -.034em; color: var(--tomato); }
 .m-product-specs { margin: 12px 0 20px; }
 .m-product-specs > div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-bottom: 1px solid #ddd2c3; }
@@ -78,6 +80,19 @@
   .m-product-layout { grid-template-columns: 1fr; gap: 24px; }
   .m-product-picture { display: flex; justify-content: center; background: #f2e6d7; }
   .m-product-picture img { max-height: 270px; width: auto; max-width: 100%; object-fit: contain; }
+  .m-product-picture--cover { position: relative; background: #dcdcdc; filter: url("#neutral-cover-studio"); }
+  /* Continue the studio backdrop from the two outermost pixel columns of this photo. */
+  .m-cover-backdrop {
+    display: block;
+    position: absolute;
+    inset: -4px;
+    border: 0 solid transparent;
+    border-image-slice: 0 1;
+    border-image-width: 0 50%;
+    filter: blur(3px);
+    pointer-events: none;
+  }
+  .m-product-picture--cover img { position: relative; }
 }
 @media (prefers-reduced-motion: reduce) {
   .m-dialog[open], .m-dialog::backdrop { animation: none; }

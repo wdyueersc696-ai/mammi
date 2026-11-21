@@ -19,9 +19,9 @@ export default function CookieNotice({ hidden = false }: { hidden?: boolean }) {
   if (!visible || hidden) return null;
   return <aside className="cookie-note" aria-labelledby="cookie-title">
     <button type="button" className="cookie-close" aria-label="Закрыть уведомление о cookie" onClick={dismiss}>×</button>
-    <h2 id="cookie-title">Пара слов о cookie</h2>
-    <p>Мы используем файлы cookie и память браузера, чтобы сохранять вашу корзину и запоминать закрытие этого окна. Да, ещё один баннер — мы тоже вздохнули. Нажмите кнопку, и он перестанет здороваться при каждом визите.</p>
+    <h2 id="cookie-title">Сначала маленькая формальность</h2>
+    <p>Сайт использует файлы cookie, чтобы помнить, что вы уже видели это окно. И ещё одну вещь он помнит за вас — какие варежки вы положили в корзину. Особенно удобно, если вы из тех, у кого открыто сорок вкладок.</p>
     <a href="./privacy.html">Подробнее об обработке данных</a>
-    <button type="button" className="cookie-accept" onClick={dismiss}>Хорошо, запомните</button>
+    <button type="button" className="cookie-accept" onClick={dismiss}>У меня сорок одна</button>
   </aside>;
 }

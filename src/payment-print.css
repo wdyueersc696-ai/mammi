@@ -97,7 +97,5 @@
   min-height: 46px;
   color: var(--print-ink);
   font-weight: 650;
-  text-decoration: underline;
-  text-underline-offset: 5px;
 }
 .payment-print-link span { font: 22px/1 Arial, sans-serif; }

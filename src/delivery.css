@@ -12,7 +12,7 @@
 .delivery-page a { color: inherit; }
 .delivery-page :where(a):focus-visible { outline: 3px solid var(--delivery-wine); outline-offset: 5px; }
 .delivery-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 24px; font-size: 12px; line-height: 1.5; }
-.delivery-breadcrumb a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.delivery-breadcrumb a { color: var(--delivery-wine); font-weight: 600; }
 .delivery-breadcrumb > span[aria-hidden] { opacity: .45; }
 .delivery-page .delivery-eyebrow { margin: 0 0 12px; font-size: 11px; font-weight: 650; line-height: 1.5; letter-spacing: .075em; text-transform: uppercase; }
 .delivery-page h1, .delivery-page h2 { margin: 0; color: var(--delivery-wine); font-family: "Yeseva One", Georgia, serif; font-weight: 400; letter-spacing: -.035em; text-wrap: balance; }
@@ -43,7 +43,7 @@
 }
 .delivery-page .delivery-lead { max-width: 35ch; margin: 16px 0 0; font-size: 16px; line-height: 1.55; }
 .delivery-jumps { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 12px; }
-.delivery-jumps a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.delivery-jumps a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600; color: var(--delivery-wine); }
 .delivery-postcard-art { width: 100%; height: auto; display: block; align-self: center; }
 .delivery-content { display: grid; gap: 38px; margin-top: clamp(36px, 5vw, 72px); }
 .delivery-content > * { min-width: 0; }
