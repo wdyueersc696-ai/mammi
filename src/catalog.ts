@@ -8,6 +8,7 @@ export type CatalogProduct = {
   image: string;
   thumbnail: string;
   inscription: string | null;
+  price: number;
 };
 
 export const productKindLabels: Record<ProductKind, string> = {
@@ -23,7 +24,7 @@ function product(
   file: string,
   inscription: string | null = null,
 ): CatalogProduct {
-  return { id, kind, title, color, inscription, image: `./products/${file}.webp`, thumbnail: `./products/${file}-460.webp` };
+  return { id, kind, title, color, inscription, price: kind === "mittens" ? 2850 : 4970, image: `./products/${file}.webp`, thumbnail: `./products/${file}-460.webp` };
 }
 
 export const catalog: CatalogProduct[] = [

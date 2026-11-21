@@ -24,28 +24,33 @@ const serverBundle = await build({
 });
 const compiled = { exports: {} };
 new Function("require", "module", "exports", serverBundle.outputFiles[0].text)(require, compiled, compiled.exports);
-const content = renderToString(createElement(compiled.exports.default));
+const styles = ["src/globals.css", "src/dialogs.css", "src/lookbook.css", "src/product-facts.css", "src/reference-theme.css", "src/commerce.css", "src/cart-drawer.css", "src/checkout.css", "src/delivery.css"];
 const versionHash = createHash("sha256");
-for (const file of ["assets/storefront.js", "src/globals.css", "src/drawer.css", "src/scene.css", "src/dialogs.css", "src/prichudy.css", "src/snowfall.css", "src/lookbook.css", "src/product-facts.css", "src/reference-theme.css", "fonts/yeseva-one.css", "fonts/lt-remark-regular.otf"]) {
+for (const file of ["assets/storefront.js", ...styles, "src/drawer.css", "src/scene.css", "src/prichudy.css", "src/snowfall.css", "fonts/yeseva-one.css", "fonts/lt-remark-regular.otf"]) {
   versionHash.update(await readFile(new URL(file, import.meta.url)));
 }
 const version = versionHash.digest("hex").slice(0, 12);
-await writeFile(new URL("./index.html", import.meta.url), `<!doctype html>
+const pages = [
+  { page: "home", file: "index.html", title: "Причуды — варежки и чехлы на коляску", description: "Коллекция «Причуды»: семь расцветок женских варежек и пять расцветок зимних чехлов на коляску. Размеры, материалы и образы для прогулок." },
+  { page: "cart", file: "cart.html", title: "Корзина — Причуды", description: "Ваши Причуды: корзина, способы доставки и оформление покупки." },
+  { page: "delivery", file: "delivery.html", title: "Доставка и оплата — Причуды", description: "Доставка Причуд по России, Санкт-Петербургу и Беларуси. Способы получения, оплата и связь с нами." },
+  { page: "privacy", file: "privacy.html", title: "Обработка данных — Причуды", description: "Как сайт Причуды хранит корзину, использует cookie и работает с данными." },
+];
+for (const page of pages) {
+const content = renderToString(createElement(compiled.exports.default, {page: page.page}));
+await writeFile(new URL(page.file, import.meta.url), `<!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ad3728">
-<meta name="description" content="Коллекция «Причуды»: семь расцветок женских варежек и пять расцветок зимних чехлов на коляску. Размеры, материалы и образы для прогулок.">
+<meta name="theme-color" content="#612731">
+<meta name="description" content="${page.description}">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Причуды — варежки и чехлы на коляску</title>
+<title>${page.title}</title>
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./fonts/inter.css">
 <link rel="preload" href="./fonts/yeseva-one-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="./fonts/yeseva-one.css">
-<link rel="stylesheet" href="./src/globals.css?v=${version}">
-<link rel="stylesheet" href="./src/dialogs.css?v=${version}">
-<link rel="stylesheet" href="./src/lookbook.css?v=${version}">
-<link rel="stylesheet" href="./src/product-facts.css?v=${version}">
-<link rel="stylesheet" href="./src/reference-theme.css?v=${version}">
+${styles.map(file => `<link rel="stylesheet" href="./${file}?v=${version}">`).join("\n")}
 <script defer src="./assets/storefront.js?v=${version}"></script>
-</head><body><div id="storefront">${content}</div><noscript>Для переключения принтов и просмотра формы включите JavaScript.</noscript></body></html>\n`);
+</head><body data-page="${page.page}"><div id="storefront">${content}</div><noscript>Для выбора товаров и работы корзины включите JavaScript. По вопросам покупки: +7 967 625-32-41.</noscript></body></html>\n`);
+}

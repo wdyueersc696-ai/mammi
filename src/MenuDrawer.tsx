@@ -4,10 +4,11 @@ import Wordmark from "./Wordmark";
 type Props = {
   onSelect: (kind: "mittens" | "cover") => void;
   onPolicy: () => void;
+  cartHref?: string;
   illustrationSrc?: string;
 };
 
-export default function MenuDrawer({ onSelect, onPolicy, illustrationSrc }: Props) {
+export default function MenuDrawer({ onSelect, onPolicy, illustrationSrc, cartHref = "./cart.html" }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const pendingAction = useRef<(() => void) | null>(null);
@@ -91,13 +92,12 @@ export default function MenuDrawer({ onSelect, onPolicy, illustrationSrc }: Prop
           </button>
         </div>
         <nav className="drawer-nav" aria-label="Разделы сайта">
-          <a href="#" onClick={event => { event.preventDefault(); closeMenu(() => window.scrollTo({ top: 0 })); }}>Главная</a>
+          <a href="./index.html">Главная</a>
           <button type="button" onClick={() => closeMenu(() => onSelect("mittens"))}>Варежки</button>
           <button type="button" onClick={() => closeMenu(() => onSelect("cover"))}>Чехлы на коляску</button>
-          <a href="#preorder" onClick={event => {
-            event.preventDefault();
-            closeMenu(() => document.getElementById("preorder")?.scrollIntoView({ block: "start" }));
-          }}>Как заказать</a>
+          <a href="./delivery.html">Доставка и оплата</a>
+          <a href={cartHref}>Корзина</a>
+          <a href="./index.html#preorder">Как заказать</a>
         </nav>
         {illustrationSrc && <img className="drawer-friends" src={illustrationSrc}
           alt="Две девушки с варежками «Причуды»" width="640" height="420" />}
