@@ -16,12 +16,8 @@
 .lb-icon-button:disabled { opacity: .35; cursor: default; }
 .lb-section :where(button):focus-visible { outline: 3px solid var(--lb-accent); outline-offset: 4px; }
 .lb-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 40px) / 3); gap: 20px; margin: 0; padding: 5px 5px 16px; list-style: none; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 5px; scrollbar-color: var(--lb-accent) transparent; scrollbar-width: thin; }
-.lb-track[data-loop="true"] { scroll-snap-type: none; scrollbar-width: none; }
-.lb-track[data-loop="true"]::-webkit-scrollbar { display: none; }
-.lb-card-copy { display: none; }
-.lb-track[data-loop="true"] .lb-card-copy { display: block; }
 .lb-card { min-width: 0; scroll-snap-align: start; }
-.lb-card-button { display: block; width: 100%; padding: 0; border: 0; border-radius: 18px; background: transparent; color: inherit; text-align: left; cursor: pointer; user-select: none; -webkit-touch-callout: none; }
+.lb-card-button { display: block; width: 100%; padding: 0; border: 0; border-radius: 18px; background: transparent; color: inherit; text-align: left; cursor: pointer; }
 .lb-card-image { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 18px; background: #e4dbce; }
 .lb-card-image > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; transition: transform 250ms ease; }
 .lb-card-open { position: absolute; inset: auto 14px 14px; display: flex; justify-content: space-between; align-items: center; padding: 11px 14px; border: 1px solid rgb(255 255 255 / 45%); border-radius: 30px; background: rgb(245 242 233 / 92%); color: var(--lb-ink); font-size: 12px; font-weight: 600; }
