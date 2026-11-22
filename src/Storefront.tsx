@@ -14,9 +14,10 @@ import CartDrawer from "./CartDrawer";
 import CookieNotice from "./CookieNotice";
 import CheckoutPage from "./CheckoutPage";
 import DeliveryPage from "./DeliveryPage";
+import ReturnsPage from "./ReturnsPage";
 import PrivacyPage from "./PrivacyPage";
 import { money, shopConfig } from "./shop-config";
-export type StorePage = "home" | "cart" | "delivery" | "privacy";
+export type StorePage = "home" | "cart" | "delivery" | "returns" | "privacy";
 function Arrow(){return <svg aria-hidden="true" viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12h17m-7-7 7 7-7 7"/></svg>}
 function StoreLayout({page}:{page:StorePage}){
  const {count,add,cartHref}=useCart();
@@ -53,11 +54,11 @@ function StoreLayout({page}:{page:StorePage}){
  <article className="bill covers"><div className="bill-text"><h2>Чехлы на<br/>коляску</h2><button onClick={()=>see("cover")}>Выбрать принт</button></div><img className="hero-item" src="./products/hero-cover-v3.webp" alt="Зимний чехол «Шоколадная полоска» с прозрачным окном и молнией"/><Snowfall offset={11}/></article>
  </div>
  <section id="collection" aria-labelledby="collection-title"><div className="collection-head"><h2 id="collection-title">Коллекция</h2><div className="filters" aria-label="Вид изделия">{(["mittens","cover"] as ProductKind[]).map(k=><button key={k} aria-pressed={kind===k} onClick={()=>setKind(k)}>{productKindLabels[k]}</button>)}</div></div><div className="products">{products.map(item=><button key={item.id} className="product" onClick={()=>setSelectedProduct(item)} aria-label={productKindLabels[item.kind]+" «"+item.title+"», "+money(item.price)+", описание и состав"}><span className={"imagewell "+item.kind}><img loading="lazy" width={460} height={item.kind==="mittens"?460:614} src={item.image} srcSet={`${item.thumbnail} 460w, ${item.image} 900w`} sizes="(max-width:620px) 47vw, 24vw" alt={item.color}/></span><span className="productline"><strong>{item.title}</strong></span><span className="product-price">{money(item.price)}</span>{item.kind==="cover"&&<span className="detail">Зимний чехол</span>}</button>)}</div></section>
- </div><Lookbook items={lookbookItems}/><section id="preorder"><div className="bounds how"><div className="how-title"><h2>Как заказать</h2></div><div><p>Выберите свой принт и добавьте вещь в корзину. Там можно изменить количество, выбрать доставку и заполнить данные для покупки.</p><p className="how-small">Онлайн-оплату готовим к запуску. О наличии и сроках пока можно узнать у нас в <a href={shopConfig.telegram} target="_blank" rel="noreferrer">Telegram</a>.</p><a className="cta" href="./delivery.html">Доставка и оплата <Arrow/></a></div><ScrollScene imageSrc="./illustrations/girl-winter-stroller-cutout.png"/></div></section></main>:page==="cart"?<CheckoutPage/>:page==="delivery"?<DeliveryPage/>:<PrivacyPage/>}
+ </div><Lookbook items={lookbookItems}/><section id="preorder"><div className="bounds how"><div className="how-title"><h2>Как заказать</h2></div><div><p>Пока магазин готовится к открытию, можно выбрать принт, собрать корзину и посмотреть варианты доставки.</p><p className="how-small">Приём заказов и оплаты ещё не открыт. О коллекции можно спросить у нас в <a href={shopConfig.telegram} target="_blank" rel="noreferrer">Telegram</a>.</p><a className="cta" href="./delivery.html">Доставка и оплата <Arrow/></a></div><ScrollScene imageSrc="./illustrations/girl-winter-stroller-cutout.png"/></div></section></main>:page==="cart"?<CheckoutPage/>:page==="delivery"?<DeliveryPage/>:page==="returns"?<ReturnsPage/>:<PrivacyPage/>}
  <footer className="shop-footer"><div className="bounds shop-footer-grid">
-   <div className="shop-footer-brand"><a href="./index.html" aria-label="Причуды, на главную" className="wordmark"><Wordmark illustrated={false}/></a><p>Нам хочется вас согреть.</p><small>© 2026 · {shopConfig.seller}</small></div>
-   <nav aria-label="Информация"><a href="./delivery.html">Доставка и оплата</a><a href={cartHref}>Корзина</a><a href="./privacy.html">Политика обработки данных</a><a href="./privacy.html#consent">Согласие на обработку данных</a><a href="./privacy.html#newsletter">О новостях и рассылке</a></nav>
-   <div className="shop-footer-contacts"><span>Будем на связи</span><a href="tel:+79676253241">{shopConfig.phone}</a><a href={shopConfig.telegram} target="_blank" rel="noopener noreferrer">Telegram · @infrastructureAi ↗</a></div>
+   <div className="shop-footer-brand"><a href="./index.html" aria-label="Причуды, на главную" className="wordmark"><Wordmark illustrated={false}/></a><p>Нам хочется вас согреть.</p><small>© 2026 · {shopConfig.owner}</small></div>
+   <nav aria-label="Информация"><a href="./delivery.html">Доставка и оплата</a><a href="./returns.html">Возврат и обмен</a><a href={cartHref}>Корзина</a><a href="./privacy.html">Политика обработки данных</a><a href="./privacy.html#newsletter">О новостях и рассылке</a></nav>
+   <div className="shop-footer-contacts"><span>Будем на связи</span><a href={`mailto:${shopConfig.email}`}>{shopConfig.email}</a><a href="tel:+79676253241">{shopConfig.phone}</a><a href={shopConfig.telegram} target="_blank" rel="noopener noreferrer">Telegram · @infrastructureAi ↗</a></div>
  </div></footer>
  <CookieNotice hidden={!!selectedProduct||cartOpen}/>
  {selectedProduct&&<ShopDialogs key={selectedProduct.id} onClose={()=>setSelectedProduct(null)} onAdd={addProduct} product={selectedProduct}/>}

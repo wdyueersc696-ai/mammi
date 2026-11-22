@@ -19,10 +19,11 @@ export default function DeliveryPage() {
       <header className="delivery-heading">
         <div className="delivery-postcard-copy">
           <h1>Доставка<br /> и оплата</h1>
-          <p className="delivery-lead">Из Петербурга по России и в Беларусь. Варежки и чехлы можно получить в пункте выдачи или у курьера.</p>
+          <p className="delivery-lead">Готовим доставку из Петербурга по России и в Беларусь. Здесь можно посмотреть варианты получения к открытию магазина.</p>
           <nav className="delivery-jumps" aria-label="На этой странице">
             <a href="#delivery-shipping">О доставке ↓</a>
             <a href="#delivery-payment">Об оплате ↓</a>
+            <a href="./returns.html">Возврат и обмен →</a>
           </nav>
         </div>
         <img className="delivery-postcard-art" src="./illustrations/prichudy/friends-delivery.webp" width="1440" height="960"
@@ -40,7 +41,7 @@ export default function DeliveryPage() {
             <span className="delivery-number" aria-hidden="true">01</span>
             <div>
               <h3 id="delivery-russia-title">По России</h3>
-              <p>Отправляем заказы СДЭК: курьером или до пункта выдачи. Ещё один вариант — получить посылку в пункте выдачи Яндекс Маркета.</p>
+              <p>Планируем доставку СДЭК курьером или до пункта выдачи. Ещё один вариант — получить посылку в пункте выдачи Яндекс Маркета.</p>
               <p>При оформлении укажите город и выберите способ получения. Стоимость и срок зависят от адреса, службы доставки и размера посылки. Их согласуем до оплаты заказа.</p>
               <p className="delivery-small">Если нужного города или пункта выдачи нет в списке, свяжитесь с нами — поможем подобрать доставку.</p>
             </div>
@@ -85,7 +86,7 @@ export default function DeliveryPage() {
 
       <div className="delivery-bottom">
         <a className="delivery-action delivery-action-secondary" href="./index.html#collection">Выбрать свои «Причуды» <Arrow /></a>
-        {shopConfig.seller && <p>Продавец: {shopConfig.seller}</p>}
+        <p>По вопросам работы витрины — {shopConfig.owner}.</p>
       </div>
     </main>
   );

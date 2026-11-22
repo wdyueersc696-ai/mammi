@@ -95,3 +95,18 @@
 @media (prefers-reduced-motion: reduce) {
   .delivery-action, .delivery-contact { transition: none; }
 }
+
+.returns-heading {
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+}
+.returns-heading p { max-width: 48ch; margin: 18px auto 22px; }
+.returns-heading img { display: block; width: min(100%, 680px); height: auto; margin: 0 auto; border-radius: 16px; }
+.returns-copy { max-width: 700px; margin: clamp(32px, 5vw, 64px) auto 0; }
+.returns-copy section { margin-bottom: clamp(30px, 5vw, 54px); }
+.returns-copy h2 { font-size: clamp(27px, 5vw, 39px); }
+.returns-copy p { margin: 14px 0 0; }
+.returns-contact { padding: clamp(20px, 4vw, 36px); border-radius: 20px; background: var(--delivery-blush); }
+.returns-contact a { color: var(--delivery-wine); font-weight: 650; }
+.returns-mail { display: inline-block; padding: 12px 0; overflow-wrap: anywhere; font-size: clamp(18px, 5vw, 25px); }

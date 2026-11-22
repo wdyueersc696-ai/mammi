@@ -62,7 +62,7 @@ export default function CheckoutPage() {
   const [apartment, setApartment] = useState("");
   const [customer, setCustomer] = useState<Customer>({ name: "", email: "", phone: "", comment: "" });
   const [newsletter, setNewsletter] = useState(false);
-  const [consent, setConsent] = useState(false);
+  const [policyRead, setPolicyRead] = useState(false);
   const [promoOpen, setPromoOpen] = useState(false);
   const [promo, setPromo] = useState("");
   const [promoMessage, setPromoMessage] = useState("");
@@ -105,13 +105,13 @@ export default function CheckoutPage() {
     if (!ready || !count) return;
     // Fail closed until a real order/payment flow has been implemented and verified.
     setSubmitMessage(!shopConfig.checkoutEnabled
-      ? "Онлайн-оформление пока недоступно. Заказ не отправлен. Свяжитесь с нами, чтобы уточнить возможность покупки."
+      ? "Проверка формы завершена. Это демоверсия. Заказ и платёж не созданы, введённые данные остались в этой вкладке."
       : "Сервис оформления сейчас недоступен. Заказ не отправлен. Свяжитесь с нами, чтобы уточнить возможность покупки.");
   }
 
   return <main id="main-content" className="checkout-page bounds">
     <nav className="checkout-breadcrumb" aria-label="Хлебные крошки"><a href="./index.html">Главная</a><span aria-hidden="true">/</span><span aria-current="page">Корзина</span></nav>
-    <header className="checkout-heading"><p className="checkout-eyebrow">Ваши тёплые находки</p><h1>Корзина</h1><p>Проверьте выбранные вещи и расскажите, куда их доставить.</p></header>
+    <header className="checkout-heading"><h1>Корзина</h1><p><strong>Оформление в деморежиме.</strong> Вы можете проверить корзину и посмотреть варианты доставки. Для пробы используйте вымышленные контакты и адрес. Магазин пока не принимает заказы и оплату.</p></header>
 
     {!ready ? <p className="checkout-loading" role="status">Загружаем вашу корзину…</p> : !products.length ? (
       <section className="checkout-empty" aria-labelledby="checkout-empty-title">
@@ -210,13 +210,12 @@ export default function CheckoutPage() {
         </fieldset>
 
         <div className="checkout-consents">
-          <label className="checkout-checkbox"><input type="checkbox" name="newsletter" checked={newsletter} onChange={event => setNewsletter(event.currentTarget.checked)} /><span>Хочу получать новости и специальные предложения. <a href="./privacy.html#newsletter" target="_blank" rel="noopener noreferrer">Условия рассылки</a></span></label>
-          <label className="checkout-checkbox"><input type="checkbox" name="consent" checked={consent} onChange={event => { setConsent(event.currentTarget.checked); setSubmitMessage(""); }} required /><span>Я ознакомился(-ась) с <a href="./privacy.html#consent" target="_blank" rel="noopener noreferrer">политикой обработки персональных данных</a> и даю согласие на их обработку для оформления покупки. <span aria-hidden="true">*</span></span></label>
+          <label className="checkout-checkbox"><input type="checkbox" name="newsletter" checked={newsletter} onChange={event => setNewsletter(event.currentTarget.checked)} /><span>Хочу получать новости и специальные предложения. <a href="./privacy.html#newsletter" target="_blank" rel="noopener noreferrer">В демоверсии подписка не оформляется</a>.</span></label>
+          <label className="checkout-checkbox"><input type="checkbox" name="policyRead" checked={policyRead} onChange={event => { setPolicyRead(event.currentTarget.checked); setSubmitMessage(""); }} required /><span>Я прочитал(а) <a href="./privacy.html#consent" target="_blank" rel="noopener noreferrer">политику обработки персональных данных</a>. <span aria-hidden="true">*</span></span></label>
         </div>
 
         <div className="checkout-submit">
-          <button className="checkout-button checkout-button-primary" type="submit" disabled={!ready || !count}>Оформить покупку <Arrow /></button>
-          <p className="checkout-hint">Онлайн-оформление ещё не открыто. Заполнение формы не создаёт заказ.</p>
+          <button className="checkout-button checkout-button-primary" type="submit" disabled={!ready || !count}>Проверить форму <Arrow /></button>
           {submitMessage && <div className="checkout-result" role="alert" tabIndex={-1} ref={resultRef}>
             <p>{submitMessage}</p>
             <div>{telegram && <a href={telegram} target="_blank" rel="noopener noreferrer">Написать в Telegram <Arrow /></a>}{phone && <a href={`tel:${phone.replace(/[^+\d]/g, "")}`}>{phone}</a>}</div>

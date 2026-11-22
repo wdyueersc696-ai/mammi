@@ -96,6 +96,7 @@ export default function MenuDrawer({ onSelect, onPolicy, illustrationSrc, cartHr
           <button type="button" onClick={() => closeMenu(() => onSelect("mittens"))}>Варежки</button>
           <button type="button" onClick={() => closeMenu(() => onSelect("cover"))}>Чехлы на коляску</button>
           <a href="./delivery.html">Доставка и оплата</a>
+          <a href="./returns.html">Возврат и обмен</a>
           <a href={cartHref}>Корзина</a>
           <a href="./index.html#preorder">Как заказать</a>
         </nav>

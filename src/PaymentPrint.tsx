@@ -10,9 +10,9 @@ export default function PaymentPrint() {
     <section className="payment-print" aria-labelledby="delivery-payment-title">
       <div className="payment-print-heading">
         <h2 id="delivery-payment-title">Оплата</h2>
-        <span className="payment-print-sign" role="img" aria-label="Причуды store">
+        <span className="payment-print-sign" role="img" aria-label="Магазин «Причуды»">
           <Wordmark illustrated={false} />
-          <i lang="en">store</i>
+          <i>магазин / <span lang="en">store</span></i>
         </span>
       </div>
       <img
