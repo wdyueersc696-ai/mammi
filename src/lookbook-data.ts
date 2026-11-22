@@ -3,22 +3,22 @@ import type { LookbookItem } from "./Lookbook";
 
 const styles: Record<string, string> = {
   stripes: "Пальто и трикотаж",
-  blocks: "Сливовый пуховик и деним",
+  rose: "Сливовый пуховик и розовая шапка",
   polka: "Дублёнка и шерсть",
   horses: "Светлая шуба и деним",
   waves: "Спортивный городской",
   lines: "Светлый пуховик",
-  hearts: "Парка на каждый день",
+  coffee: "Оливковая парка и молочный шарф",
 };
 
 const photos: Record<string, string> = {
   stripes: "stripes-final-20261122.webp",
-  blocks: "blocks-final-20261122.webp",
+  rose: "rose.webp",
   polka: "polka-final-20261122.webp",
   horses: "horses-final-20261122.webp",
   waves: "waves-final-20261122.webp",
   lines: "lines-final-20261122.webp",
-  hearts: "hearts.webp",
+  coffee: "coffee.webp",
 };
 
 export const lookbookItems: LookbookItem[] = catalog

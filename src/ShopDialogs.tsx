@@ -57,7 +57,7 @@ export default function ShopDialogs({ product, onClose, onAdd }: Props) {
         <div className="m-product-description">
           <h3 className="m-product-name">{product.title}</h3>
           <p className="product-dialog-price">{money(product.price)}</p>
-          <p>{isMittens ? "Утеплённые варежки для зимних прогулок — с коляской, за руку или просто по любимому маршруту. Внутри мягкий флис и отдельный слой утеплителя." : "Готовим утеплённый чехол для зимних прогулок с коляской. Спереди предусмотрены молния и прозрачное открываемое окно. Принт можно подобрать в тон варежкам."}</p>
+          <p>{product.description ?? (isMittens ? "Утеплённые варежки для зимних прогулок — с коляской, за руку или просто по любимому маршруту. Внутри мягкий флис и отдельный слой утеплителя." : "Готовим утеплённый чехол для зимних прогулок с коляской. Спереди предусмотрены молния и прозрачное открываемое окно. Принт можно подобрать в тон варежкам.")}</p>
           <button type="button" className="m-dialog-main" onClick={() => onAdd(product)}>В корзину · {money(product.price)}</button>
           <a className="product-delivery-link" href="./delivery.html">О доставке и оплате →</a>
           {isMittens ? <ProductFacts confirmed={true} /> : <>
